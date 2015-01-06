@@ -1,5 +1,10 @@
 
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import model.PDF;
+
 import com.google.gson.Gson;
 
 
@@ -7,7 +12,11 @@ public class GSON_Main {
 	public GSON_Main() {
 
 	}
-	public static void main(String[] args) {
+	public static void main(String[] args)   {
+		DataBase db = new DataBase();
+		ArrayList<PDF> pdfList = new ArrayList<PDF>();
+		pdfList =db.retrieveDB();
+		
 		Test_Object obj = new Test_Object();
 		/*with white spaces
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
