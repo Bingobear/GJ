@@ -3,14 +3,15 @@ package model;
 import java.util.ArrayList;
 
 public class PDF {
+	private int pdfID;
+	private ArrayList<Category> genericKeywords;
 	private ArrayList<WordOcc> wordOcc;
 	private String language;
 	private int wordcount;
-	private ArrayList<Category> genericKeywords;
 	//TODDO cat -> scoring optimized
 	private int catnumb;
 	private String firstPage;
-	private int publicationID;
+
 	private String title;
 
 	public int getWordcount() {
@@ -40,11 +41,12 @@ public class PDF {
 	}
 
 	public PDF(String title, String language, ArrayList<WordOcc> words,
-			ArrayList<Category> cats) {
+			ArrayList<Category> cats, int id) {
 		this.wordOcc = words;
 		this.title = title;
 		this.language = language;
 		this.genericKeywords = cats;
+		this.pdfID=id;
 	}
 
 	public ArrayList<WordOcc> getWordOccList() {
@@ -85,11 +87,11 @@ public class PDF {
 	}
 
 	public int getPublicationID() {
-		return publicationID;
+		return pdfID;
 	}
 
 	public void setPublicationID(int publicationID) {
-		this.publicationID = publicationID;
+		this.pdfID = publicationID;
 	}
 
 	public int getCatnumb() {
