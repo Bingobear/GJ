@@ -13,6 +13,10 @@ public void setTitle(String title) {
 	public Category() {
 		// TODO Auto-generated constructor stub
 	}
+	public Category(String title) {
+		this.setTitle(title);
+	}
+	
 	public Category(String name,double relevance) {
 		this.setTitle(name);
 		this.setRelevance(relevance);
