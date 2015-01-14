@@ -96,13 +96,18 @@ public class DataBase {
 			throws SQLException {
 		// TODO Auto-generated method stub
 		ArrayList<PDF> pdfList = new ArrayList<PDF>();
+		connect.setAutoCommit(false);
 		Statement state = connect.createStatement();
 
-		// state.setFetchSize(100);
+		state.setFetchSize(10);
 		ResultSet resultSetPDF = state.executeQuery("SELECT * FROM  " + dbName
 				+ ".pdf");
+		int counter = 0;
 		while (resultSetPDF.next()) {
-
+			counter++;
+			if(counter==5){
+				break;
+			}
 			int id = resultSetPDF.getInt("idPDF");
 			// System.out.println(id);
 			String title = resultSetPDF.getString("title");
