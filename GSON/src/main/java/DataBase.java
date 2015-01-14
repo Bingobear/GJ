@@ -105,7 +105,7 @@ public class DataBase {
 		int counter = 0;
 		while (resultSetPDF.next()) {
 			counter++;
-			if(counter==5){
+			if(counter==-1){
 				break;
 			}
 			int id = resultSetPDF.getInt("idPDF");

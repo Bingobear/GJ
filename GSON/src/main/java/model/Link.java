@@ -2,11 +2,11 @@ package model;
 
 public class Link {
 private int source;
-private int destination;
+private int target;
 private double value;
 public Link(int counter, int counterG, double value) {
 	this.source = counter;
-	this.destination = counterG;
+	this.target = counterG;
 	//TODO DEBUG value
 	this.value = 1;
 }
@@ -17,10 +17,10 @@ public void setSource(int source) {
 	this.source = source;
 }
 public int getDestination() {
-	return destination;
+	return target;
 }
 public void setDestination(int destination) {
-	this.destination = destination;
+	this.target = destination;
 }
 public double getValue() {
 	return value;

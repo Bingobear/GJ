@@ -46,11 +46,14 @@ public class GSON_Main {
 		ArrayList<Category> cats = corpus.getGlobalCategory();
 		ArrayList<PDF> pdfs = corpus.getPdfList();
 		ArrayList<Node> nodes = new ArrayList<Node>();
+		int counter = 1;
 		for (Category cat : cats) {
-			nodes.add(new Node(cat));
+			nodes.add(new Node(cat,counter));
+			counter++;
 		}
 		for (PDF pdf : pdfs) {
-			nodes.add(new Node(pdf));
+			nodes.add(new Node(pdf,counter));
+			counter++;
 		}
 		return nodes;
 	}
@@ -58,7 +61,7 @@ public class GSON_Main {
 	private static void writeDJSON(String alljson) {
 		try {
 			// write converted json data to a file named "CountryGSON.json"
-			FileWriter writer = new FileWriter("c:/RWTH/Data/hcicorpus.json");
+			FileWriter writer = new FileWriter("c:/RWTH/JS/d3tutorial/hcicorpus.json");
 
 			writer.write(alljson);
 			writer.close();
@@ -87,6 +90,8 @@ public class GSON_Main {
 						if (newgCat.isEmpty()) {
 							newgCat.add(gCatList.get(counterG));
 							position = newgCat.size() - 1;
+							links.add(new Link(counter, position, cat
+									.getRelevance()));
 							break;
 						} else {
 							for (int ii = 0; ii < newgCat.size(); ii++) {
@@ -104,7 +109,7 @@ public class GSON_Main {
 								position = newgCat.size() - 1;
 							}
 						}
-						links.add(new Link(counter + 1, position + 1, cat
+						links.add(new Link(counter, position, cat
 								.getRelevance()));
 					}
 				}
@@ -113,6 +118,9 @@ public class GSON_Main {
 		}
 		for (Link current : links) {
 			current.setSource(current.getSource() + newgCat.size());
+		}
+		for(int ii=0;ii<newgCat.size();ii++){
+			newgCat.get(ii).setColor(ii);
 		}
 		corpus.setGlobalCategory(newgCat);
 		return links;

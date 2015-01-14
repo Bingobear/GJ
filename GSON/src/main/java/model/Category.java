@@ -2,6 +2,7 @@ package model;
 
 public class Category {
 private String title;
+private int color;
 //private int wOcc;
 private double relevance;
 	public String getTitle() {
@@ -42,6 +43,12 @@ public void setTitle(String title) {
 	public void incRelevance(double i) {
 		//this.relevance=this.relevance+1;
 		this.relevance=this.relevance+i;
+	}
+	public int getColor() {
+		return color;
+	}
+	public void setColor(int color) {
+		this.color = color;
 	}
 
 }
