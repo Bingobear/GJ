@@ -22,7 +22,7 @@ public void setTitle(String title) {
 		this.setRelevance(relevance);
 	}
 	public double getRelevance() {
-		return relevance;
+		return this.relevance;
 	}
 	
 //	//TODO Not relevance but #t in cat
