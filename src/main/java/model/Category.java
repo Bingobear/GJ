@@ -3,6 +3,7 @@ package model;
 public class Category {
 private String title;
 private int color;
+private String normtitle;
 //private int wOcc;
 private double relevance;
 	public String getTitle() {
@@ -21,6 +22,15 @@ public void setTitle(String title) {
 	public Category(String name,double relevance) {
 		this.setTitle(name);
 		this.setRelevance(relevance);
+	}
+	public Category(String title2, String normtitle) {
+		this.setTitle(title2);
+		this.setNormtitle(normtitle);
+	}
+	public Category(String name, String normtitle2, double relevance2) {
+		this.setTitle(name);
+		this.setNormtitle(normtitle2);
+		this.setRelevance(relevance2);
 	}
 	public double getRelevance() {
 		return this.relevance;
@@ -49,6 +59,12 @@ public void setTitle(String title) {
 	}
 	public void setColor(int color) {
 		this.color = color;
+	}
+	public String getNormtitle() {
+		return normtitle;
+	}
+	public void setNormtitle(String normtitle) {
+		this.normtitle = normtitle;
 	}
 
 }
