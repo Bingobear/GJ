@@ -112,8 +112,8 @@ public class DataBase {
 			int id = resultSetPDF.getInt("idPDF");
 			// System.out.println(id);
 			String title = resultSetPDF.getString("title");
-			if(title.length()>10){
-				title="PDF:"+title.substring(0, 5);
+			if(title.length()>20){
+				title="PDF:"+title.substring(0, 20);
 			}
 			String language = resultSetPDF.getString("language");
 
