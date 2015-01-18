@@ -1,7 +1,6 @@
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-
 import model.*;
 
 import com.google.gson.Gson;
@@ -95,11 +94,24 @@ public class GSON_Main {
 							break;
 						} else {
 							for (int ii = 0; ii < newgCat.size(); ii++) {
-								if (newgCat
+								String wordA = newgCat
 										.get(ii)
-										.getTitle()
-										.equals(gCatList.get(counterG)
-												.getTitle())) {
+										.getNormtitle();
+								String wordB = gCatList.get(counterG)
+										.getNormtitle();
+								int ld = AlgorithmUtil.LevenshteinDistance(wordA, wordB);
+								double sim = 0;
+								if(wordA.length()>wordB.length()){
+									sim = AlgorithmUtil.calculateWordSim(wordA, ld);
+								}else{
+									sim = AlgorithmUtil.calculateWordSim(wordB, ld);
+								}
+								if(sim<=0.2){
+//								if (newgCat
+//										.get(ii)
+//										.getTitle()
+//										.equals(gCatList.get(counterG)
+//												.getTitle())) {
 									position = ii;
 									break;
 								}
