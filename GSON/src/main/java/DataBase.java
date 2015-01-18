@@ -83,7 +83,8 @@ public class DataBase {
 			int id = resultSetCategory.getInt("idGlobalCategory");
 			// System.out.println(id);
 			String title = resultSetCategory.getString("title");
-			Category cat = new Category(title);
+			String normtitle = resultSetCategory.getString("normtitle");
+			Category cat = new Category(title,normtitle);
 			// System.out.println(pdf.getPublicationID());
 			gCatList.add(cat);
 		}
@@ -111,6 +112,9 @@ public class DataBase {
 			int id = resultSetPDF.getInt("idPDF");
 			// System.out.println(id);
 			String title = resultSetPDF.getString("title");
+			if(title.length()>10){
+				title="PDF:"+title.substring(0, 5);
+			}
 			String language = resultSetPDF.getString("language");
 
 			ArrayList<WordOcc> words = createWords(connect, id);
@@ -131,14 +135,15 @@ public class DataBase {
 			throws SQLException {
 		ArrayList<Category> cats = new ArrayList<Category>();
 		preparedStatement = connect
-				.prepareStatement("SELECT PDF_idPDF,name, relevance FROM  "
+				.prepareStatement("SELECT PDF_idPDF,name, relevance,normtitle FROM  "
 						+ dbName + ".Category WHERE PDF_idPDF=" + id);
 		resultSet = preparedStatement.executeQuery();
 		while (resultSet.next()) {
 
 			String name = resultSet.getString("name");
+			String normtitle = resultSet.getString("normtitle");
 			double relevance = resultSet.getDouble("relevance");
-			Category cat = new Category(name, relevance);
+			Category cat = new Category(name,normtitle, relevance);
 			cats.add(cat);
 
 		}
