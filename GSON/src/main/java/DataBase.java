@@ -49,9 +49,8 @@ public class DataBase {
 
 		// setup the connection with the DB.
 		try {
-			connect = DriverManager
-					.getConnection("jdbc:mysql://localhost/"+dbName+"?"
-							+ "user=test&password=test");
+			connect = DriverManager.getConnection("jdbc:mysql://localhost/"
+					+ dbName + "?" + "user=test&password=test");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -84,7 +83,7 @@ public class DataBase {
 			// System.out.println(id);
 			String title = resultSetCategory.getString("title");
 			String normtitle = resultSetCategory.getString("normtitle");
-			Category cat = new Category(title,normtitle);
+			Category cat = new Category(title, normtitle);
 			// System.out.println(pdf.getPublicationID());
 			gCatList.add(cat);
 		}
@@ -106,14 +105,14 @@ public class DataBase {
 		int counter = 0;
 		while (resultSetPDF.next()) {
 			counter++;
-			if(counter==-1){
+			if (counter == -1) {
 				break;
 			}
 			int id = resultSetPDF.getInt("idPDF");
 			// System.out.println(id);
 			String title = resultSetPDF.getString("title");
-			if(title.length()>20){
-				title="PDF:"+title.substring(0, 20);
+			if (title.length() > 20) {
+				title = "PDF:" + title.substring(0, 20);
 			}
 			String language = resultSetPDF.getString("language");
 
@@ -121,7 +120,7 @@ public class DataBase {
 			// TODO TOO MUCH INFO FOR PROTOTYPE VERSION (INCLUDE LATER)
 			words = null;
 			ArrayList<Category> cats = createCats(connect, id);
-			//TODO ADD AUTHOR
+			// TODO ADD AUTHOR
 			PDF pdf = new PDF(title, language, words, cats, id);
 			// System.out.println(pdf.getPublicationID());
 			pdfList.add(pdf);
@@ -135,7 +134,7 @@ public class DataBase {
 			throws SQLException {
 		ArrayList<Category> cats = new ArrayList<Category>();
 		preparedStatement = connect
-				.prepareStatement("SELECT PDF_idPDF,name, relevance,normtitle FROM  "
+				.prepareStatement("SELECT PDF_idPDF,name, relevance,normtitle,associatedGCat FROM  "
 						+ dbName + ".Category WHERE PDF_idPDF=" + id);
 		resultSet = preparedStatement.executeQuery();
 		while (resultSet.next()) {
@@ -143,7 +142,13 @@ public class DataBase {
 			String name = resultSet.getString("name");
 			String normtitle = resultSet.getString("normtitle");
 			double relevance = resultSet.getDouble("relevance");
-			Category cat = new Category(name,normtitle, relevance);
+			String assGC = resultSet.getString("associatedGCat");
+			Category cat = null;
+			if (assGC != null) {
+				cat = new Category(name, normtitle, relevance);
+			} else {
+				cat = new Category(name, normtitle, relevance, assGC);
+			}
 			cats.add(cat);
 
 		}
