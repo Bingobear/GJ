@@ -6,6 +6,7 @@ private int color;
 private String normtitle;
 //private int wOcc;
 private double relevance;
+private String assGC;
 	public String getTitle() {
 	return title;
 }
@@ -31,6 +32,13 @@ public void setTitle(String title) {
 		this.setTitle(name);
 		this.setNormtitle(normtitle2);
 		this.setRelevance(relevance2);
+	}
+	public Category(String name, String normtitle2, double relevance2,
+			String assGC) {
+		this.setTitle(name);
+		this.setNormtitle(normtitle2);
+		this.setRelevance(relevance2);
+		this.setAssGC(assGC);
 	}
 	public double getRelevance() {
 		return this.relevance;
@@ -65,6 +73,12 @@ public void setTitle(String title) {
 	}
 	public void setNormtitle(String normtitle) {
 		this.normtitle = normtitle;
+	}
+	public String getAssGC() {
+		return assGC;
+	}
+	public void setAssGC(String assGC) {
+		this.assGC = assGC;
 	}
 
 }
