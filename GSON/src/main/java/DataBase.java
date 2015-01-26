@@ -17,7 +17,7 @@ public class DataBase {
 	private Statement statement = null;
 	private PreparedStatement preparedStatement = null;
 	private ResultSet resultSet = null;
-	private String dbName = "hcicorpus";
+	private String dbName = "hcicorpus_test";
 
 	// you need to close all three to make sure
 	private void close() {
