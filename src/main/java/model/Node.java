@@ -12,6 +12,7 @@ public class Node {
 	private double relevance=-1;
 	private ArrayList<Category> genericKeywords=new ArrayList<Category>();
 	private ArrayList<WordOcc> wordOcc = new ArrayList<WordOcc>();
+	private String type;
 	
 	public Node(Category cat) {
 		this.title = cat.getTitle();
@@ -38,6 +39,22 @@ public class Node {
 		this.wordOcc = pdf.getWordOccList();
 		this.genericKeywords = pdf.getGenericKeywords();
 		this.number = counter;
+	}
+	public Node(Category cat, int counter, String type) {
+		this.group=cat.getColor();
+		this.title = cat.getTitle();
+		this.relevance = cat.getRelevance();
+		this.number = counter;
+		this.type = type;
+	}
+	public Node(PDF pdf, int counter, String type) {
+		this.title = pdf.getTitle();
+		this.pdfID = pdf.getPublicationID();
+		this.language = pdf.getLanguage();
+		this.wordOcc = pdf.getWordOccList();
+		this.genericKeywords = pdf.getGenericKeywords();
+		this.number = counter;
+		this.type = type;
 	}
 
 }

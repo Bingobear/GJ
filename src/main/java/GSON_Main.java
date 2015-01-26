@@ -60,7 +60,7 @@ public class GSON_Main {
 	private static void writeDJSON(String alljson) {
 		try {
 			// write converted json data to a file named "CountryGSON.json"
-			FileWriter writer = new FileWriter("c:/RWTH/JS/d3tutorial/hcicorpus.json");
+			FileWriter writer = new FileWriter("c:/RWTH/Data/hcicorpus.json");
 
 			writer.write(alljson);
 			writer.close();
@@ -80,11 +80,17 @@ public class GSON_Main {
 			ArrayList<Category> pCatList = pdfList.get(counter)
 					.getGenericKeywords();
 			for (Category cat : pCatList) {
-				String pdfCtitle = cat.getTitle();
+				String pdfCtitle = cat.getNormtitle();
+				if(pdfCtitle.equals("AGE")){
+					String test = "";
+				}
 				for (int counterG = 0; counterG < gCatList.size(); counterG++) {
-					String gCtitle = gCatList.get(counterG).getTitle();
-					if (pdfCtitle.equals(gCtitle)) {
+					String gCtitle = gCatList.get(counterG).getNormtitle();
+					if ((pdfCtitle.equals(gCtitle))||(cat.getAssGC().equals(gCtitle))) {
 						System.out.println(cat.getRelevance());
+						if(pdfCtitle.equals("AGE")){
+							String test = "";
+						}
 						int position = -1;
 						if (newgCat.isEmpty()) {
 							newgCat.add(gCatList.get(counterG));
@@ -119,7 +125,13 @@ public class GSON_Main {
 							if (position == -1) {
 								newgCat.add(gCatList.get(counterG));
 								position = newgCat.size() - 1;
+								if(pdfCtitle.equals("AGE")){
+									String test = "";
+								}
 							}
+						}
+						if(pdfCtitle.equals("AGE")){
+							String test = "";
 						}
 						links.add(new Link(counter, position, cat
 								.getRelevance()));
