@@ -10,6 +10,7 @@ public class PDF {
 	private int wordcount;
 	//TODDO cat -> scoring optimized
 	private int catnumb;
+	private String shorttitle;
 	private String firstPage;
 
 	private String title;
@@ -40,10 +41,11 @@ public class PDF {
 		this.firstPage = titlePage;
 	}
 
-	public PDF(String title, String language, ArrayList<WordOcc> words,
+	public PDF(String shorttitle, String title, String language, ArrayList<WordOcc> words,
 			ArrayList<Category> cats, int id) {
 		this.wordOcc = words;
 		this.title = title;
+		this.setShorttitle(shorttitle);
 		this.language = language;
 		this.genericKeywords = cats;
 		this.pdfID=id;
@@ -108,6 +110,14 @@ public class PDF {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public String getShorttitle() {
+		return shorttitle;
+	}
+
+	public void setShorttitle(String shorttitle) {
+		this.shorttitle = shorttitle;
 	}
 
 }
