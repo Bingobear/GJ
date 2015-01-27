@@ -111,8 +111,9 @@ public class DataBase {
 			int id = resultSetPDF.getInt("idPDF");
 			// System.out.println(id);
 			String title = resultSetPDF.getString("title");
+			String shorttitle = title;
 			if (title.length() > 20) {
-				title = "PDF:" + title.substring(0, 20);
+				shorttitle = "PDF:" + title.substring(0, 20);
 			}
 			String language = resultSetPDF.getString("language");
 
@@ -121,7 +122,7 @@ public class DataBase {
 			words = null;
 			ArrayList<Category> cats = createCats(connect, id);
 			// TODO ADD AUTHOR
-			PDF pdf = new PDF(title, language, words, cats, id);
+			PDF pdf = new PDF(shorttitle,title, language, words, cats, id);
 			// System.out.println(pdf.getPublicationID());
 			pdfList.add(pdf);
 		}
