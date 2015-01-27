@@ -47,11 +47,11 @@ public class GSON_Main {
 		ArrayList<Node> nodes = new ArrayList<Node>();
 		int counter = 1;
 		for (Category cat : cats) {
-			nodes.add(new Node(cat,counter));
+			nodes.add(new Node(cat,counter,"circle"));
 			counter++;
 		}
 		for (PDF pdf : pdfs) {
-			nodes.add(new Node(pdf,counter));
+			nodes.add(new Node(pdf,counter,"square"));
 			counter++;
 		}
 		return nodes;
@@ -86,7 +86,24 @@ public class GSON_Main {
 				}
 				for (int counterG = 0; counterG < gCatList.size(); counterG++) {
 					String gCtitle = gCatList.get(counterG).getNormtitle();
-					if ((pdfCtitle.equals(gCtitle))||(cat.getAssGC().equals(gCtitle))) {
+					if(pdfCtitle==null){
+						break;
+					}
+					if(gCtitle ==null){
+						continue;
+					}
+					Boolean found = false;
+					if(pdfCtitle.equals(gCtitle)){
+						found = true;
+					}
+					else if(cat.getAssGC()!=null){
+						if(cat.getAssGC().equals(gCtitle)){
+							found = true;
+						}
+					}
+
+//					if ((pdfCtitle.equals(gCtitle))||(cat.getAssGC().equals(gCtitle))) {
+					if(found){
 						System.out.println(cat.getRelevance());
 						if(pdfCtitle.equals("AGE")){
 							String test = "";
