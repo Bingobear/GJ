@@ -133,17 +133,25 @@ public class DataBase {
 
 	private ArrayList<Category> createCats(Connection connect, int id)
 			throws SQLException {
-		ArrayList<Category> cats = new ArrayList<Category>();
+		ArrayList<Integer> catids = new ArrayList<Integer>();
 		preparedStatement = connect
-				.prepareStatement("SELECT PDF_idPDF,name, relevance,normtitle,associatedGCat FROM  "
-						+ dbName + ".Category WHERE PDF_idPDF=" + id);
+				.prepareStatement("SELECT Category_idCategory FROM  "
+						+ dbName + ".PDF_has_Category WHERE PDF_idPDF=" + id);
 		resultSet = preparedStatement.executeQuery();
-		while (resultSet.next()) {
-
-			String name = resultSet.getString("name");
-			String normtitle = resultSet.getString("normtitle");
-			double relevance = resultSet.getDouble("relevance");
-			String assGC = resultSet.getString("associatedGCat");
+		while(resultSet.next()){
+			catids.add(resultSet.getInt("Category_idCategory"));
+		}
+		ArrayList<Category> cats = new ArrayList<Category>();
+		for(int counter=0;counter<catids.size();counter++){
+			preparedStatement = connect
+					.prepareStatement("SELECT name, relevance,normtitle,associatedGCat FROM  "
+							+ dbName + ".Category WHERE idCategory=" + catids.get(counter));
+			ResultSet resultSetcat = preparedStatement.executeQuery();
+			resultSetcat.next();
+			String name = resultSetcat.getString("name");
+			String normtitle = resultSetcat.getString("normtitle");
+			double relevance = resultSetcat.getDouble("relevance");
+			String assGC = resultSetcat.getString("associatedGCat");
 			Category cat = null;
 			if (assGC != null) {
 				cat = new Category(name, normtitle, relevance);
@@ -151,9 +159,7 @@ public class DataBase {
 				cat = new Category(name, normtitle, relevance, assGC);
 			}
 			cats.add(cat);
-
 		}
-
 		return cats;
 	}
 
