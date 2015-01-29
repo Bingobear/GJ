@@ -4,11 +4,12 @@ import java.util.ArrayList;
 
 public class DDDFormat {
 
-
+ArrayList graph = new ArrayList();
 ArrayList<Node> nodes = new ArrayList<Node>();
 ArrayList<Link> links = new ArrayList<Link>();
 boolean multigraph = false;
 boolean directed = false;
+
 
 
 public DDDFormat(ArrayList<Node> nodes2, ArrayList<Link> links2) {
