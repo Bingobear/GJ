@@ -1,6 +1,7 @@
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+
 import model.*;
 
 import com.google.gson.Gson;
@@ -24,21 +25,57 @@ public class GSON_Main {
 		 */
 		Gson gsona = new Gson();
 		// Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
+		corpus.setPdfList(normPDFRel(corpus.getPdfList()));
 		ArrayList<Link> links = generateLinks(corpus);
 		ArrayList<Node> nodes = generateNodes(corpus);
 		DDDFormat djson = new DDDFormat(nodes, links);
 		String alljson = gsona.toJson(djson);
 		writeDJSON(alljson);
+	}
 
-		// Gson gson = new Gson();
-		// gson.toJson(1);
-		// gson.toJson("abcd");
-		// gson.toJson(new Long(10));
-		// int[] values = { 1 };
-		// gson.toJson(values);
-		// System.out.print(json);
+	//NORMALIZE CATEGORY RELEVANCE PER PDF
+	private static ArrayList<PDF> normPDFRel(ArrayList<PDF> pdfList) {
+		double max = 100;
+		double min = 0;
+		double range = max - min;
+		for (int ii = 0; ii < pdfList.size(); ii++) {
+			ArrayList<Category> pdfCats = pdfList.get(ii).getGenericKeywords();
+			double maxOld = getMaxRel(pdfList.get(ii));
+			double minOld = getMinRel(pdfList.get(ii));
+			double rangeOld = maxOld - minOld;
+			for (int jj = 0; jj < pdfCats.size(); jj++) {
+				double currentVal = pdfCats.get(jj).getRelevance();
+				if (rangeOld == 0) {
+					pdfCats.get(jj).setRelevance(50);
+				} else {
+					pdfCats.get(jj).setRelevance(
+							(((currentVal - minOld) * range) / rangeOld) + min);
+				}
+			}
+		}
+		return pdfList;
+	}
 
+	private static double getMinRel(PDF pdf) {
+		ArrayList<Category> pdfCats = pdf.getGenericKeywords();
+		double min = 999;
+		for (int jj = 0; jj < pdfCats.size(); jj++) {
+			if (min > pdfCats.get(jj).getRelevance()) {
+				min = pdfCats.get(jj).getRelevance();
+			}
+		}
+		return min;
+	}
+
+	private static double getMaxRel(PDF pdf) {
+		ArrayList<Category> pdfCats = pdf.getGenericKeywords();
+		double max = 0;
+		for (int jj = 0; jj < pdfCats.size(); jj++) {
+			if (max < pdfCats.get(jj).getRelevance()) {
+				max = pdfCats.get(jj).getRelevance();
+			}
+		}
+		return max;
 	}
 
 	private static ArrayList<Node> generateNodes(Corpus corpus) {
