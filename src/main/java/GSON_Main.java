@@ -47,11 +47,11 @@ public class GSON_Main {
 		ArrayList<Node> nodes = new ArrayList<Node>();
 		int counter = 1;
 		for (Category cat : cats) {
-			nodes.add(new Node(cat,counter,"circle"));
+			nodes.add(new Node(cat, counter, "circle"));
 			counter++;
 		}
 		for (PDF pdf : pdfs) {
-			nodes.add(new Node(pdf,counter,"square"));
+			nodes.add(new Node(pdf, counter, "square"));
 			counter++;
 		}
 		return nodes;
@@ -81,33 +81,32 @@ public class GSON_Main {
 					.getGenericKeywords();
 			for (Category cat : pCatList) {
 				String pdfCtitle = cat.getNormtitle();
-				if(pdfCtitle.equals("AGE")){
-					String test = "";
-				}
+
 				for (int counterG = 0; counterG < gCatList.size(); counterG++) {
 					String gCtitle = gCatList.get(counterG).getNormtitle();
-					if(pdfCtitle==null){
+					if (pdfCtitle == null) {
 						break;
 					}
-					if(gCtitle ==null){
+					if (gCtitle == null) {
 						continue;
 					}
 					Boolean found = false;
-					if(pdfCtitle.equals(gCtitle)){
+					if (pdfCtitle.equals(gCtitle)) {
 						found = true;
-					}
-					else if(cat.getAssGC()!=null){
-						if(cat.getAssGC().equals(gCtitle)){
+					} else if (cat.getAssGC() != null) {
+						if (cat.getAssGC().equals(gCtitle)) {
 							found = true;
 						}
 					}
 
-//					if ((pdfCtitle.equals(gCtitle))||(cat.getAssGC().equals(gCtitle))) {
-					if(found){
-						System.out.println(cat.getRelevance());
-						if(pdfCtitle.equals("AGE")){
-							String test = "";
-						}
+					// if
+					// ((pdfCtitle.equals(gCtitle))||(cat.getAssGC().equals(gCtitle)))
+					// {
+					if (found) {
+						// System.out.println(cat.getRelevance());
+						// if(pdfCtitle.equals("AGE")){
+						// String test = "";
+						// }
 						int position = -1;
 						if (newgCat.isEmpty()) {
 							newgCat.add(gCatList.get(counterG));
@@ -117,24 +116,25 @@ public class GSON_Main {
 							break;
 						} else {
 							for (int ii = 0; ii < newgCat.size(); ii++) {
-								String wordA = newgCat
-										.get(ii)
-										.getNormtitle();
+								String wordA = newgCat.get(ii).getNormtitle();
 								String wordB = gCatList.get(counterG)
 										.getNormtitle();
-								int ld = AlgorithmUtil.LevenshteinDistance(wordA, wordB);
+								int ld = AlgorithmUtil.LevenshteinDistance(
+										wordA, wordB);
 								double sim = 0;
-								if(wordA.length()>wordB.length()){
-									sim = AlgorithmUtil.calculateWordSim(wordA, ld);
-								}else{
-									sim = AlgorithmUtil.calculateWordSim(wordB, ld);
+								if (wordA.length() > wordB.length()) {
+									sim = AlgorithmUtil.calculateWordSim(wordA,
+											ld);
+								} else {
+									sim = AlgorithmUtil.calculateWordSim(wordB,
+											ld);
 								}
-								if(sim<=0.2){
-//								if (newgCat
-//										.get(ii)
-//										.getTitle()
-//										.equals(gCatList.get(counterG)
-//												.getTitle())) {
+								if (sim <= 0.2) {
+									// if (newgCat
+									// .get(ii)
+									// .getTitle()
+									// .equals(gCatList.get(counterG)
+									// .getTitle())) {
 									position = ii;
 									break;
 								}
@@ -142,14 +142,10 @@ public class GSON_Main {
 							if (position == -1) {
 								newgCat.add(gCatList.get(counterG));
 								position = newgCat.size() - 1;
-								if(pdfCtitle.equals("AGE")){
-									String test = "";
-								}
+
 							}
 						}
-						if(pdfCtitle.equals("AGE")){
-							String test = "";
-						}
+
 						links.add(new Link(counter, position, cat
 								.getRelevance()));
 					}
@@ -160,7 +156,7 @@ public class GSON_Main {
 		for (Link current : links) {
 			current.setSource(current.getSource() + newgCat.size());
 		}
-		for(int ii=0;ii<newgCat.size();ii++){
+		for (int ii = 0; ii < newgCat.size(); ii++) {
 			newgCat.get(ii).setColor(ii);
 		}
 		corpus.setGlobalCategory(newgCat);
