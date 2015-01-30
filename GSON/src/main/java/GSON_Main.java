@@ -146,6 +146,8 @@ public class GSON_Main {
 						// }
 						int position = -1;
 						if (newgCat.isEmpty()) {
+							//TODO Evaluate if incEdgeDegree works
+							gCatList.get(counterG).incEdgeDegree();
 							newgCat.add(gCatList.get(counterG));
 							position = newgCat.size() - 1;
 							links.add(new Link(counter, position, cat
@@ -173,10 +175,12 @@ public class GSON_Main {
 									// .equals(gCatList.get(counterG)
 									// .getTitle())) {
 									position = ii;
+									newgCat.get(ii).incEdgeDegree();
 									break;
 								}
 							}
 							if (position == -1) {
+								gCatList.get(counterG).incEdgeDegree();
 								newgCat.add(gCatList.get(counterG));
 								position = newgCat.size() - 1;
 
