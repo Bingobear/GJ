@@ -7,6 +7,7 @@ private String normtitle;
 //private int wOcc;
 private double relevance;
 private String assGC;
+private int edgeDegree=0;
 	public String getTitle() {
 	return title;
 }
@@ -79,6 +80,16 @@ public void setTitle(String title) {
 	}
 	public void setAssGC(String assGC) {
 		this.assGC = assGC;
+	}
+	public int getEdgeDegree() {
+		return edgeDegree;
+	}
+	public void setEdgeDegree(int edgeDegree) {
+		this.edgeDegree = edgeDegree;
+	}
+	
+	public void incEdgeDegree(){
+		this.edgeDegree++;
 	}
 
 }
