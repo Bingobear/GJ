@@ -24,19 +24,26 @@ public class GSON_Main {
 		 * String jsonOutput = gson.toJson(someObject);
 		 */
 		Gson gsona = new Gson();
+		DDDFormat djson = calculateJSONV(corpus);
 		// Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+		String alljson = gsona.toJson(djson);
+		writeDJSON(alljson);
+	}
+
+	private static DDDFormat  calculateJSONV(Corpus corpus) {
 		corpus.setPdfList(normPDFRel(corpus.getPdfList()));
 		ArrayList<Link> links = generateLinks(corpus);
 		ArrayList<Node> nodes = generateNodes(corpus);
 		DDDFormat djson = new DDDFormat(nodes, links);
-		String alljson = gsona.toJson(djson);
-		writeDJSON(alljson);
+		return djson;
+		
 	}
 
 	//NORMALIZE CATEGORY RELEVANCE PER PDF
 	private static ArrayList<PDF> normPDFRel(ArrayList<PDF> pdfList) {
 		double max = 100;
-		double min = 0;
+		double min = 25;
 		double range = max - min;
 		for (int ii = 0; ii < pdfList.size(); ii++) {
 			ArrayList<Category> pdfCats = pdfList.get(ii).getGenericKeywords();
@@ -48,7 +55,7 @@ public class GSON_Main {
 				if (rangeOld == 0) {
 					pdfCats.get(jj).setRelevance(50);
 				} else {
-					pdfCats.get(jj).setRelevance(
+					pdfCats.get(jj).setRelevance((int)
 							(((currentVal - minOld) * range) / rangeOld) + min);
 				}
 			}
