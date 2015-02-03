@@ -12,6 +12,7 @@ public class Node {
 	private double relevance = -1;
 	private ArrayList<Category> genericKeywords = new ArrayList<Category>();
 	private ArrayList<WordOcc> wordOcc = new ArrayList<WordOcc>();
+	private ArrayList<Author> authors = new ArrayList<Author>();
 	private String type;
 	private String shorttitle;
 	private int edgeDegree = -1;
@@ -46,6 +47,7 @@ public class Node {
 		this.language = pdf.getLanguage();
 		this.wordOcc = pdf.getWordOccList();
 		this.genericKeywords = pdf.getGenericKeywords();
+		this.authors = pdf.getAuthors();
 		this.number = counter;
 
 	}
@@ -72,10 +74,7 @@ public class Node {
 		this.genericKeywords = pdf.getGenericKeywords();
 		this.number = counter;
 		this.type = type;
-		if (pdfID < 50) {
-			this.test = 50;
-		} else {
-			this.test = 100;
-		}
+		this.authors = pdf.getAuthors();
+
 	}
 }
