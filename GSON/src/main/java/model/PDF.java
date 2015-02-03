@@ -6,6 +6,7 @@ public class PDF {
 	private int pdfID;
 	private ArrayList<Category> genericKeywords;
 	private ArrayList<WordOcc> wordOcc;
+	private ArrayList<Author> authors;
 	private String language;
 	private int wordcount;
 	//TODDO cat -> scoring optimized
@@ -25,9 +26,6 @@ public class PDF {
 		this.wordcount = wordcount;
 	}
 
-	public PDF() {
-		// TODO Auto-generated constructor stub
-	}
 
 	public PDF(ArrayList<WordOcc> words, String language, int wordcount) {
 		this.wordOcc = words;
@@ -45,7 +43,7 @@ public class PDF {
 
 
 	public PDF(String title, String shorttitle,String language, ArrayList<WordOcc> words,
-			ArrayList<Category> cats, int id) {
+			ArrayList<Category> cats, int id, ArrayList<Author> authors) {
 		this.wordOcc = words;
 		this.title = title;
 
@@ -54,6 +52,7 @@ public class PDF {
 		this.language = language;
 		this.genericKeywords = cats;
 		this.pdfID=id;
+		this.authors = authors;
 	}
 
 	public ArrayList<WordOcc> getWordOccList() {
@@ -124,6 +123,14 @@ public class PDF {
 
 	public void setShortTitle(String shortTitle) {
 		this.shortTitle = shortTitle;
+	}
+
+	public ArrayList<Author> getAuthors() {
+		return authors;
+	}
+
+	public void setAuthors(ArrayList<Author> authors) {
+		this.authors = authors;
 	}
 
 
