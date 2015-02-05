@@ -33,14 +33,14 @@ public class GSON_Main {
 		String autoC = gsona.toJson(autoCo);
 		writeDJSON(alljson, "hcicorpus");
 		writeDJSON(author, "author");
-		writeDJSON(autoC,"autocomplete_all");
+		writeDJSON(autoC,"autocomplete");
 	}
 
 	private static ArrayList<String> createAC(Corpus corpus) {
 		ArrayList<String> all = new ArrayList<String>();
-		for(int ii=0;ii<corpus.getAllAuthors().size();ii++){
-			all.add(corpus.getAllAuthors().get(ii).getName()+" -A");
-		}
+//		for(int ii=0;ii<corpus.getAllAuthors().size();ii++){
+//			all.add(corpus.getAllAuthors().get(ii).getName()+" -A");
+//		}
 		for(int ii=0;ii<corpus.getGlobalCategory().size();ii++){
 			all.add(corpus.getGlobalCategory().get(ii).getTitle());
 		}

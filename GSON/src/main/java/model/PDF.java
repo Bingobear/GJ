@@ -17,6 +17,7 @@ public class PDF {
 	private String firstPage;
 
 	private String title;
+	private String fileN;
 
 	public int getWordcount() {
 		return wordcount;
@@ -42,8 +43,8 @@ public class PDF {
 	}
 
 
-	public PDF(String title, String shorttitle,String language, ArrayList<WordOcc> words,
-			ArrayList<Category> cats, int id, ArrayList<Author> authors) {
+	public PDF(String shorttitle, String title,String language, ArrayList<WordOcc> words,
+			ArrayList<Category> cats, int id, ArrayList<Author> authors, String fileN) {
 		this.wordOcc = words;
 		this.title = title;
 
@@ -53,6 +54,7 @@ public class PDF {
 		this.genericKeywords = cats;
 		this.pdfID=id;
 		this.authors = authors;
+		this.fileN = fileN;
 	}
 
 	public ArrayList<WordOcc> getWordOccList() {
@@ -131,6 +133,14 @@ public class PDF {
 
 	public void setAuthors(ArrayList<Author> authors) {
 		this.authors = authors;
+	}
+
+	public String getFileN() {
+		return fileN;
+	}
+
+	public void setFileN(String fileN) {
+		this.fileN = fileN;
 	}
 
 
