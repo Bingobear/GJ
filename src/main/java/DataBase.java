@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.Normalizer;
 import java.util.ArrayList;
 
 import model.Author;
@@ -18,7 +19,7 @@ public class DataBase {
 	private Statement statement = null;
 	private PreparedStatement preparedStatement = null;
 	private ResultSet resultSet = null;
-	private String dbName = "hcicorpus_test";
+	private String dbName = "hcicorpus";
 
 	// you need to close all three to make sure
 	private void close() {
@@ -83,7 +84,9 @@ public class DataBase {
 			int id = resultSetCategory.getInt("idAuthor");
 			// System.out.println(id);
 			String name = resultSetCategory.getString("name");
-			Author aut = new Author(name);
+			String nameNorm = Normalizer.normalize(name,
+					Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
+			Author aut = new Author(nameNorm);
 			// System.out.println(pdf.getPublicationID());
 			authors.add(aut);
 		}
@@ -132,13 +135,16 @@ public class DataBase {
 			if (counter == -1) {
 				break;
 			}
+			
 			int id = resultSetPDF.getInt("idPDF");
 			// System.out.println(id);
 			String title = resultSetPDF.getString("title");
+			//title = title.toLowerCase();
 			String shorttitle = title;
 			if (title.length() > 20) {
-				shorttitle = "PDF:" + title.substring(0, 20);
+				shorttitle = title.substring(0, 20)+" (...)";
 			}
+			String fileN = resultSetPDF.getString("fileName");
 			String language = resultSetPDF.getString("language");
 
 
@@ -149,7 +155,7 @@ public class DataBase {
 			
 			ArrayList<Author> authors = createAuthors(connect,id);
 			// TODO ADD AUTHOR
-			PDF pdf = new PDF(shorttitle,title, language, words, cats, id,authors);
+			PDF pdf = new PDF(shorttitle,title, language, words, cats, id,authors,fileN);
 			// System.out.println(pdf.getPublicationID());
 			pdfList.add(pdf);
 		}
@@ -175,8 +181,9 @@ public class DataBase {
 			ResultSet resultSetcat = preparedStatement.executeQuery();
 			resultSetcat.next();
 			String name = resultSetcat.getString("name");
-
-			Author author = new Author(name);
+			String nameNorm = Normalizer.normalize(name,
+					Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
+			Author author = new Author(nameNorm);
 
 			authors.add(author);
 		}

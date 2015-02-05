@@ -19,6 +19,7 @@ public class Node {
 	private int color = -1;
 	private int test = -1;
 	private String normtitle="";
+	private String fileN="";
 
 	public Node(Category cat) {
 		this.title = cat.getTitle();
@@ -75,6 +76,7 @@ public class Node {
 		this.number = counter;
 		this.type = type;
 		this.authors = pdf.getAuthors();
+		this.fileN = pdf.getFileN();
 
 	}
 }
