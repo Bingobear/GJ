@@ -154,10 +154,12 @@ public class DataBase {
 			ArrayList<Category> cats = createCats(connect, id);
 			
 			ArrayList<Author> authors = createAuthors(connect,id);
-			// TODO ADD AUTHOR
+			// TODO HOTFIX NOT FINAL SOLUTION
+			if((id!=12)&&(id!=31)&&(id!=49)&&(id!=88)){
 			PDF pdf = new PDF(shorttitle,title, language, words, cats, id,authors,fileN);
 			// System.out.println(pdf.getPublicationID());
 			pdfList.add(pdf);
+			}
 		}
 		resultSetPDF.close();
 		state.close();
