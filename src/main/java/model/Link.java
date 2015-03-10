@@ -1,31 +1,42 @@
 package model;
 
 public class Link {
-private int source;
-private int target;
+//private int sourceP;
+//private int targetP;
 private double value;
+private String source;
+private String target;
 public Link(int counter, int counterG, double value) {
-	this.source = counter;
-	this.target = counterG;
+//	this.sourceP = counter;
+//	this.targetP = counterG;
 	//TODO DEBUG value
 	this.value = 1;
 }
-public int getSource() {
-	return source;
-}
-public void setSource(int source) {
+public Link(int counter, int counterG, double value,String source,String target) {
+//	this.source = counter;
+//	this.target = counterG;
 	this.source = source;
+	this.target = target;
+	//TODO DEBUG value
+	this.value = 1;
 }
-public int getDestination() {
-	return target;
-}
-public void setDestination(int destination) {
-	this.target = destination;
-}
+
 public double getValue() {
 	return value;
 }
 public void setValue(double value) {
 	this.value = value;
+}
+public String getSourceP() {
+	return source;
+}
+public void setSourceP(String sourceP) {
+	this.source = sourceP;
+}
+public String getTragetP() {
+	return target;
+}
+public void setTragetP(String tragetP) {
+	this.target = tragetP;
 }
 }

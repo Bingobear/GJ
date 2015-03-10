@@ -198,8 +198,10 @@ public class GSON_Main {
 							gCatList.get(counterG).incEdgeDegree();
 							newgCat.add(gCatList.get(counterG));
 							position = newgCat.size() - 1;
+//							links.add(new Link(counter, position, cat
+//									.getRelevance()));
 							links.add(new Link(counter, position, cat
-									.getRelevance()));
+									.getRelevance(),pdfList.get(counter).getTitle(),newgCat.get(position).getNormtitle()));
 							break;
 						} else {
 							for (int ii = 0; ii < newgCat.size(); ii++) {
@@ -236,9 +238,10 @@ public class GSON_Main {
 
 							}
 						}
-
 						links.add(new Link(counter, position, cat
-								.getRelevance()));
+								.getRelevance(),pdfList.get(counter).getTitle(),newgCat.get(position).getNormtitle()));
+//						links.add(new Link(counter, position, cat
+//								.getRelevance()));
 					}
 				}
 			}
@@ -246,9 +249,9 @@ public class GSON_Main {
 			addCatToAuthor(pdfList.get(counter), corpus, pgCat);
 
 		}
-		for (Link current : links) {
-			current.setSource(current.getSource() + newgCat.size());
-		}
+//		for (Link current : links) {
+//			current.setSource(current.getSource() + newgCat.size());
+//		}
 		for (int ii = 0; ii < newgCat.size(); ii++) {
 			newgCat.get(ii).setColor(ii);
 		}

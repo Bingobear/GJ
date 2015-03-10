@@ -3,8 +3,10 @@ package model;
 import java.util.ArrayList;
 
 public class Node {
+	private String id="";
 	private String title;
 	// HOW TO COLOR CODE GROUPS
+	
 	private int group = -1;
 	private int number = -1;
 	private int pdfID = -1;
@@ -21,6 +23,7 @@ public class Node {
 	private String normtitle="";
 	private String fileN="";
 
+
 	public Node(Category cat) {
 		this.title = cat.getTitle();
 		this.group = cat.getColor();
@@ -33,9 +36,11 @@ public class Node {
 		this.language = pdf.getLanguage();
 		this.wordOcc = pdf.getWordOccList();
 		this.genericKeywords = pdf.getGenericKeywords();
+		this.id = pdf.getTitle();
 	}
 
 	public Node(Category cat, int counter) {
+		this.id = cat.getTitle();
 		this.group = cat.getColor();
 		this.title = cat.getTitle();
 		this.relevance = cat.getRelevance();
@@ -43,6 +48,7 @@ public class Node {
 	}
 
 	public Node(PDF pdf, int counter) {
+		this.id = pdf.getTitle();
 		this.title = pdf.getTitle();
 		this.pdfID = pdf.getPublicationID();
 		this.language = pdf.getLanguage();
@@ -54,6 +60,7 @@ public class Node {
 	}
 
 	public Node(Category cat, int counter, String type) {
+		this.id = cat.getNormtitle();
 		this.group = cat.getColor();
 		this.title = cat.getTitle();
 		this.relevance = cat.getRelevance();
@@ -67,6 +74,7 @@ public class Node {
 	}
 
 	public Node(PDF pdf, int counter, String type) {
+		this.id = pdf.getTitle();
 		this.title = pdf.getTitle();
 		this.shorttitle = pdf.getShortTitle();
 		this.pdfID = pdf.getPublicationID();
