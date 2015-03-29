@@ -159,6 +159,7 @@ public class GSON_Main {
 		ArrayList<Link> links = new ArrayList<Link>();
 		ArrayList<Category> newgCat = new ArrayList<Category>();
 		for (int counter = 0; counter < pdfList.size(); counter++) {
+			PDF current = pdfList.get(counter);
 			ArrayList<Category> pCatList = pdfList.get(counter)
 					.getGenericKeywords();
 			// work around for authors
@@ -196,6 +197,7 @@ public class GSON_Main {
 							// TODO Evaluate if incEdgeDegree works
 							pgCat.add(gCatList.get(counterG));
 							gCatList.get(counterG).incEdgeDegree();
+							gCatList.get(counterG).addPDF(new SimplePDF(current.getTitle(),cat.getRelevance()));
 							newgCat.add(gCatList.get(counterG));
 							position = newgCat.size() - 1;
 //							links.add(new Link(counter, position, cat
@@ -226,12 +228,15 @@ public class GSON_Main {
 									// .getTitle())) {
 									position = ii;
 									newgCat.get(ii).incEdgeDegree();
+									newgCat.get(ii).addPDF(new SimplePDF(current.getTitle(),cat.getRelevance()));
 									pgCat.add(newgCat.get(ii));
 									break;
 								}
 							}
 							if (position == -1) {
 								gCatList.get(counterG).incEdgeDegree();
+								//added for graph linking btw pdf and category
+								gCatList.get(counterG).addPDF(new SimplePDF(current.getTitle(),cat.getRelevance()));
 								newgCat.add(gCatList.get(counterG));
 								pgCat.add(gCatList.get(counterG));
 								position = newgCat.size() - 1;
@@ -290,9 +295,12 @@ public class GSON_Main {
 //								+ jj + " " + pdf.getAuthors().get(ii).getName()
 //								+ ii);
 //					}
+					//changed category to simplecategory
 					for (int kk = 0; kk < pgCat.size(); kk++) {
 						if (!authors.get(jj).getCats().contains(pgCat.get(kk))) {
-							authors.get(jj).getCats().add(pgCat.get(kk));
+							Category current = pgCat.get(kk);
+							SimpleCategory newCat = new SimpleCategory(current.getTitle(),current.getNormtitle(),current.getAssGC());
+							authors.get(jj).getCats().add(newCat);
 						}
 					}
 				}

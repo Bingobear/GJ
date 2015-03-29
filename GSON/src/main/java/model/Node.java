@@ -22,6 +22,7 @@ public class Node {
 	private int test = -1;
 	private String normtitle="";
 	private String fileN="";
+	private ArrayList<SimplePDF> publications = new ArrayList<SimplePDF>();
 
 
 	public Node(Category cat) {
@@ -71,6 +72,7 @@ public class Node {
 		this.shorttitle = cat.getTitle();
 		this.test = 100;
 		this.normtitle = cat.getNormtitle();
+		this.publications = cat.getPdfs();
 	}
 
 	public Node(PDF pdf, int counter, String type) {

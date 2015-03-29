@@ -1,10 +1,12 @@
 package model;
 
 import java.util.ArrayList;
-
+//create separate author class 
 public class Author {
 	private String name;
-	private ArrayList<Category> cats = new ArrayList();
+	//has unnecessary values
+	//private ArrayList<Category> cats = new ArrayList();
+	private ArrayList<SimpleCategory> cats = new ArrayList();
 	// private String adress;
 	// private int pos;
 	// private int authorID;
@@ -43,11 +45,11 @@ public class Author {
 	// this.authorID = authorID;
 	// }
 
-	public ArrayList<Category> getCats() {
+	public ArrayList<SimpleCategory> getCats() {
 		return cats;
 	}
 
-	public void setCats(ArrayList<Category> cats) {
+	public void setCats(ArrayList<SimpleCategory> cats) {
 		this.cats = cats;
 	}
 }
