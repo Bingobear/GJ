@@ -4,9 +4,11 @@ import java.util.ArrayList;
 
 public class PDF {
 	private int pdfID;
+	private String title;
 	private ArrayList<Category> genericKeywords;
 	private ArrayList<WordOcc> wordOcc;
 	private ArrayList<Author> authors;
+	private Publication pub ;
 	private String language;
 	private int wordcount;
 	//TODDO cat -> scoring optimized
@@ -16,8 +18,9 @@ public class PDF {
 
 	private String firstPage;
 
-	private String title;
+
 	private String fileN;
+
 
 	public int getWordcount() {
 		return wordcount;
@@ -141,6 +144,14 @@ public class PDF {
 
 	public void setFileN(String fileN) {
 		this.fileN = fileN;
+	}
+
+	public Publication getPub() {
+		return pub;
+	}
+
+	public void setPub(Publication pub) {
+		this.pub = pub;
 	}
 
 
