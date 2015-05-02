@@ -158,7 +158,6 @@ public class DataBase {
 			ArrayList<Author> authors = createAuthors(connect, id);
 			// TODO HOTFIX NOT FINAL SOLUTION
 
-
 			PDF pdf = new PDF(shorttitle, title, language, words, cats, id,
 					authors, fileN);
 			if (pubID > 0) {
@@ -180,7 +179,7 @@ public class DataBase {
 		preparedStatement = connect2.prepareStatement("SELECT * FROM  "
 				+ dbName + ".publication WHERE idPublication=" + pubID);
 		resultSet = preparedStatement.executeQuery();
-		int journaltitle=0;
+		int journaltitle = 0;
 		while (resultSet.next()) {
 			String title = resultSet.getString("title");
 			String format = resultSet.getString("format");
@@ -188,15 +187,18 @@ public class DataBase {
 			String publisher = resultSet.getString("publisher");
 			String idBTH = resultSet.getString("idBTH");
 			String origin = resultSet.getString("origin");
-			pub = new Publication(title,format,relDate,publisher,idBTH,origin);
-			 journaltitle = resultSet.getInt("Journal_idJournal");
+			pub = new Publication(title, format, relDate, publisher, idBTH,
+					origin);
+			journaltitle = resultSet.getInt("Journal_idJournal");
 
 		}
-		if (journaltitle>0){
+		if (journaltitle > 0) {
 			preparedStatement = connect2.prepareStatement("SELECT * FROM  "
 					+ dbName + ".journal WHERE idJournal=" + pubID);
 			resultSet = preparedStatement.executeQuery();
-			pub.setJournaltitle(resultSet.getString("title"));
+			while (resultSet.next()) {
+				pub.setJournaltitle(resultSet.getString("title"));
+			}
 		}
 		return pub;
 	}
