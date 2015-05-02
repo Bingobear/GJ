@@ -10,7 +10,7 @@ public class Category {
 	private double relevance;
 	private String assGC;
 	private int edgeDegree = 0;
-	private ArrayList<SimplePDF> pdfs = new ArrayList<SimplePDF>();
+	private ArrayList<SimplePDF> publications = new ArrayList<SimplePDF>();
 
 	public String getTitle() {
 		return title;
@@ -111,15 +111,15 @@ public class Category {
 	}
 
 	public ArrayList<SimplePDF> getPdfs() {
-		return pdfs;
+		return publications;
 	}
 
 	public void setPdfs(ArrayList<SimplePDF> pdfs) {
-		this.pdfs = pdfs;
+		this.publications = pdfs;
 	}
 	
 	public void addPDF(SimplePDF pdf){
-		this.pdfs.add(pdf);
+		this.publications.add(pdf);
 	}
 
 }

@@ -15,11 +15,11 @@ public class Node {
 	private ArrayList<Category> genericKeywords = new ArrayList<Category>();
 	private ArrayList<WordOcc> wordOcc = new ArrayList<WordOcc>();
 	private ArrayList<Author> authors = new ArrayList<Author>();
+	private Publication publication;
 	private String type;
 	private String shorttitle;
 	private int edgeDegree = -1;
 	private int color = -1;
-	private int test = -1;
 	private String normtitle="";
 	private String fileN="";
 	private ArrayList<SimplePDF> publications = new ArrayList<SimplePDF>();
@@ -70,7 +70,6 @@ public class Node {
 		this.edgeDegree = cat.getEdgeDegree();
 		this.color = cat.getColor();
 		this.shorttitle = cat.getTitle();
-		this.test = 100;
 		this.normtitle = cat.getNormtitle();
 		this.publications = cat.getPdfs();
 	}
@@ -79,6 +78,7 @@ public class Node {
 		this.id = pdf.getTitle();
 		this.title = pdf.getTitle();
 		this.shorttitle = pdf.getShortTitle();
+		this.publication = pdf.getPub();
 		this.pdfID = pdf.getPublicationID();
 		this.language = pdf.getLanguage();
 		this.wordOcc = pdf.getWordOccList();
