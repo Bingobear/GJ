@@ -12,6 +12,7 @@ import model.Author;
 import model.Category;
 import model.Corpus;
 import model.PDF;
+import model.PDFWords;
 import model.Publication;
 import model.WordOcc;
 
@@ -152,7 +153,9 @@ public class DataBase {
 
 			ArrayList<WordOcc> words = createWords(connect, id);
 			// TODO TOO MUCH INFO FOR PROTOTYPE VERSION (INCLUDE LATER)
-			words = null;
+			if(GSON_Main.modeC){
+				words = null;
+				}
 			ArrayList<Category> cats = createCats(connect, id);
 
 			ArrayList<Author> authors = createAuthors(connect, id);
@@ -280,4 +283,6 @@ public class DataBase {
 		}
 		return words;
 	}
+
+	
 }

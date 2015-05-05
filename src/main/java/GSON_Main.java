@@ -1,5 +1,6 @@
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import model.*;
@@ -8,33 +9,53 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 public class GSON_Main {
+	static boolean modeC = false;
+
 	public GSON_Main() {
 
 	}
 
 	public static void main(String[] args) {
 		DataBase db = new DataBase();
+		if (modeC) {
+			Corpus corpus = db.retrieveDB();
+			// System.out.println(corpus.getPdfList().size());
 
-		Corpus corpus = db.retrieveDB();
-		// System.out.println(corpus.getPdfList().size());
+			/*
+			 * with white spaces
+			 * 
+			 * String jsonOutput = gson.toJson(someObject);
+			 */
+			Gson gsona = new Gson();
+			DDDFormat djson = calculateJSONV(corpus);
+			// Gson gson = new GsonBuilder().setPrettyPrinting().create();
+			String author = gsona.toJson(corpus.getAllAuthors());
+			String alljson = gsona.toJson(djson);
+			ArrayList<String> autoCo = createAC(corpus);
+			// String autoC = gsona.toJson(new
+			// AutoComplete(corpus.getAllAuthors(),corpus.getGlobalCategory()));
+			String autoC = gsona.toJson(autoCo);
+			writeDJSON(alljson, "hcicorpus");// hcicorpus
+			writeDJSON(author, "author");
+			writeDJSON(autoC, "autocomplete");
+		} else {
+			Corpus corpus = db.retrieveDB();
+			ArrayList<PDFWords> completeList = getPWords(corpus);
+			Gson gsona = new Gson();
+			String wordcloudjson = gsona.toJson(completeList);
+			writeDJSON(wordcloudjson, "wordCloud");
+		}
+	}
 
-		/*
-		 * with white spaces
-		 * 
-		 * String jsonOutput = gson.toJson(someObject);
-		 */
-		Gson gsona = new Gson();
-		DDDFormat djson = calculateJSONV(corpus);
-		// Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		String author = gsona.toJson(corpus.getAllAuthors());
-		String alljson = gsona.toJson(djson);
-		ArrayList<String> autoCo = createAC(corpus);
-		// String autoC = gsona.toJson(new
-		// AutoComplete(corpus.getAllAuthors(),corpus.getGlobalCategory()));
-		String autoC = gsona.toJson(autoCo);
-		writeDJSON(alljson, "hcicorpus");// hcicorpus
-		writeDJSON(author, "author");
-		writeDJSON(autoC, "autocomplete");
+	private static ArrayList<PDFWords> getPWords(Corpus corpus) {
+		ArrayList<PDFWords> result = new ArrayList<PDFWords>();
+		ArrayList<PDF> pdfL = corpus.getPdfList();
+		for(int ii=0;ii<pdfL.size();ii++){
+			String fileN = pdfL.get(ii).getFileN();
+			ArrayList<WordOcc> words = pdfL.get(ii).getWordOccList();
+			result.add(new PDFWords(words,fileN));
+		}
+		return result;
 	}
 
 	private static ArrayList<String> createAC(Corpus corpus) {
