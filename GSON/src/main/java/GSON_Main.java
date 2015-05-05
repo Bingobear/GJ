@@ -28,20 +28,21 @@ public class GSON_Main {
 		// Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		String author = gsona.toJson(corpus.getAllAuthors());
 		String alljson = gsona.toJson(djson);
-		ArrayList<String> autoCo = createAC (corpus);
-//		String autoC = gsona.toJson(new AutoComplete(corpus.getAllAuthors(),corpus.getGlobalCategory()));
+		ArrayList<String> autoCo = createAC(corpus);
+		// String autoC = gsona.toJson(new
+		// AutoComplete(corpus.getAllAuthors(),corpus.getGlobalCategory()));
 		String autoC = gsona.toJson(autoCo);
-		writeDJSON(alljson, "hcicorpus");
+		writeDJSON(alljson, "hcicorpus");// hcicorpus
 		writeDJSON(author, "author");
-		writeDJSON(autoC,"autocomplete");
+		writeDJSON(autoC, "autocomplete");
 	}
 
 	private static ArrayList<String> createAC(Corpus corpus) {
 		ArrayList<String> all = new ArrayList<String>();
-//		for(int ii=0;ii<corpus.getAllAuthors().size();ii++){
-//			all.add(corpus.getAllAuthors().get(ii).getName()+" -A");
-//		}
-		for(int ii=0;ii<corpus.getGlobalCategory().size();ii++){
+		// for(int ii=0;ii<corpus.getAllAuthors().size();ii++){
+		// all.add(corpus.getAllAuthors().get(ii).getName()+" -A");
+		// }
+		for (int ii = 0; ii < corpus.getGlobalCategory().size(); ii++) {
 			all.add(corpus.getGlobalCategory().get(ii).getTitle());
 		}
 		return all;
@@ -50,7 +51,7 @@ public class GSON_Main {
 	private static DDDFormat calculateJSONV(Corpus corpus) {
 		corpus.setPdfList(normPDFRel(corpus.getPdfList()));
 		ArrayList<Link> links = generateLinks(corpus);
-	//	 addCatToPDFAuthor(corpus);
+		// addCatToPDFAuthor(corpus);
 		ArrayList<Node> nodes = generateNodes(corpus);
 		DDDFormat djson = new DDDFormat(nodes, links);
 		return djson;
@@ -197,13 +198,28 @@ public class GSON_Main {
 							// TODO Evaluate if incEdgeDegree works
 							pgCat.add(gCatList.get(counterG));
 							gCatList.get(counterG).incEdgeDegree();
-							gCatList.get(counterG).addPDF(new SimplePDF(current.getTitle(),cat.getRelevance()));
+							if (current.getPub() == null) {
+								gCatList.get(counterG).addPDF(
+										new SimplePDF(current.getTitle(), cat
+												.getRelevance()));
+							} else {
+								Publication pub = current.getPub();
+								gCatList.get(counterG).addPDF(
+										new SimplePDF(current.getTitle(), cat
+												.getRelevance(), pub
+												.getReleaseDate(), pub
+												.getJournaltitle(), pub
+												.getOrigin(), pub
+												.getPublisher()));
+							}
 							newgCat.add(gCatList.get(counterG));
 							position = newgCat.size() - 1;
-//							links.add(new Link(counter, position, cat
-//									.getRelevance()));
+							// links.add(new Link(counter, position, cat
+							// .getRelevance()));
 							links.add(new Link(counter, position, cat
-									.getRelevance(),pdfList.get(counter).getTitle(),newgCat.get(position).getNormtitle()));
+									.getRelevance(), pdfList.get(counter)
+									.getTitle(), newgCat.get(position)
+									.getNormtitle()));
 							break;
 						} else {
 							for (int ii = 0; ii < newgCat.size(); ii++) {
@@ -228,15 +244,43 @@ public class GSON_Main {
 									// .getTitle())) {
 									position = ii;
 									newgCat.get(ii).incEdgeDegree();
-									newgCat.get(ii).addPDF(new SimplePDF(current.getTitle(),cat.getRelevance()));
+									if (current.getPub() == null) {
+										newgCat.get(ii).addPDF(
+												new SimplePDF(current
+														.getTitle(), cat
+														.getRelevance()));
+									} else {
+										Publication pub = current.getPub();
+										newgCat.get(ii).addPDF(
+												new SimplePDF(current
+														.getTitle(), cat
+														.getRelevance(), pub
+														.getReleaseDate(), pub
+														.getJournaltitle(), pub
+														.getOrigin(), pub
+														.getPublisher()));
+									}
 									pgCat.add(newgCat.get(ii));
 									break;
 								}
 							}
 							if (position == -1) {
 								gCatList.get(counterG).incEdgeDegree();
-								//added for graph linking btw pdf and category
-								gCatList.get(counterG).addPDF(new SimplePDF(current.getTitle(),cat.getRelevance()));
+								// added for graph linking btw pdf and category
+								if (current.getPub() == null) {
+									gCatList.get(counterG).addPDF(
+											new SimplePDF(current.getTitle(),
+													cat.getRelevance()));
+								} else {
+									Publication pub = current.getPub();
+									gCatList.get(counterG).addPDF(
+											new SimplePDF(current.getTitle(),
+													cat.getRelevance(), pub
+															.getReleaseDate(),
+													pub.getJournaltitle(), pub
+															.getOrigin(), pub
+															.getPublisher()));
+								}
 								newgCat.add(gCatList.get(counterG));
 								pgCat.add(gCatList.get(counterG));
 								position = newgCat.size() - 1;
@@ -244,9 +288,11 @@ public class GSON_Main {
 							}
 						}
 						links.add(new Link(counter, position, cat
-								.getRelevance(),pdfList.get(counter).getTitle(),newgCat.get(position).getNormtitle()));
-//						links.add(new Link(counter, position, cat
-//								.getRelevance()));
+								.getRelevance(), pdfList.get(counter)
+								.getTitle(), newgCat.get(position)
+								.getNormtitle()));
+						// links.add(new Link(counter, position, cat
+						// .getRelevance()));
 					}
 				}
 			}
@@ -254,14 +300,14 @@ public class GSON_Main {
 			addCatToAuthor(pdfList.get(counter), corpus, pgCat);
 
 		}
-//		for (Link current : links) {
-//			current.setSource(current.getSource() + newgCat.size());
-//		}
+		// for (Link current : links) {
+		// current.setSource(current.getSource() + newgCat.size());
+		// }
 		for (int ii = 0; ii < newgCat.size(); ii++) {
 			newgCat.get(ii).setColor(ii);
 		}
 		ArrayList<Author> authHelp = new ArrayList<Author>();
-		
+
 		for (int ii = 0; ii < corpus.getAllAuthors().size(); ii++) {
 			if (corpus.getAllAuthors().get(ii).getCats().size() > 0) {
 				authHelp.add(corpus.getAllAuthors().get(ii));
@@ -280,26 +326,28 @@ public class GSON_Main {
 
 		for (int ii = 0; ii < pdf.getAuthors().size(); ii++) {
 			for (int jj = 0; jj < authors.size(); jj++) {
-//				if (pdf.getAuthors().get(ii).getName().contains("Himmel")) {
-//					if (authors.get(jj).getName().contains("Himmel")) {
-//						System.out.println("WTF" + authors.get(jj).getName()
-//								+ jj + " " + pdf.getAuthors().get(ii).getName()
-//								+ ii);
-//					}
-//				}
+				// if (pdf.getAuthors().get(ii).getName().contains("Himmel")) {
+				// if (authors.get(jj).getName().contains("Himmel")) {
+				// System.out.println("WTF" + authors.get(jj).getName()
+				// + jj + " " + pdf.getAuthors().get(ii).getName()
+				// + ii);
+				// }
+				// }
 
 				if (pdf.getAuthors().get(ii).getName()
 						.equals(authors.get(jj).getName())) {
-//					if (authors.get(jj).getName().contains("Himmel")) {
-//						System.out.println("WTF" + authors.get(jj).getName()
-//								+ jj + " " + pdf.getAuthors().get(ii).getName()
-//								+ ii);
-//					}
-					//changed category to simplecategory
+					// if (authors.get(jj).getName().contains("Himmel")) {
+					// System.out.println("WTF" + authors.get(jj).getName()
+					// + jj + " " + pdf.getAuthors().get(ii).getName()
+					// + ii);
+					// }
+					// changed category to simplecategory
 					for (int kk = 0; kk < pgCat.size(); kk++) {
 						if (!authors.get(jj).getCats().contains(pgCat.get(kk))) {
 							Category current = pgCat.get(kk);
-							SimpleCategory newCat = new SimpleCategory(current.getTitle(),current.getNormtitle(),current.getAssGC());
+							SimpleCategory newCat = new SimpleCategory(
+									current.getTitle(), current.getNormtitle(),
+									current.getAssGC());
 							authors.get(jj).getCats().add(newCat);
 						}
 					}
