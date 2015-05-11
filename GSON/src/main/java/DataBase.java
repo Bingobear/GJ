@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.text.Normalizer;
 import java.util.ArrayList;
 
+import model.AlgorithmUtil;
 import model.Author;
 import model.Category;
 import model.Corpus;
@@ -269,17 +270,43 @@ public class DataBase {
 	private ArrayList<WordOcc> createWords(Connection connect, int id)
 			throws SQLException {
 		ArrayList<WordOcc> words = new ArrayList<WordOcc>();
+		ArrayList<Author> authors  = createAllAuthor(connect);
 		preparedStatement = connect
 				.prepareStatement("SELECT PDF_idPDF,word,count,tfidf_score FROM  "
-						+ dbName + ".Keyword WHERE PDF_idPDF=" + id);
+						+ dbName + ".Keyword WHERE PDF_idPDF=" + id+"  ORDER BY tfidf_score DESC");
 		resultSet = preparedStatement.executeQuery();
 		while (resultSet.next()) {
 
 			String word = resultSet.getString("word");
+			String eva = word.toLowerCase();
+			boolean author =false;
+			for(int ii =0;ii<authors.size();ii++){
+				//potentially use levenstein to find writing errors
+				if(authors.get(ii).getName().toLowerCase().contains(eva)){
+					author = true;
+				}
+			}
 			int count = resultSet.getInt("count");
-			double tfidf = resultSet.getDouble("tfidf_score");
+			double tfidf = resultSet.getDouble("tfidf_score")*10000;
+
 			WordOcc wordocc = new WordOcc(word, count, tfidf);
 			words.add(wordocc);
+		}
+		if(words.size()>50){
+			words = new ArrayList(words.subList(0, 50));
+			int factorToInt = 1;
+			for(int ii=0;ii<words.size();ii++){
+				double value = words.get(ii).getTfidf();
+				value= value*factorToInt*10;
+				while(value<10){
+					value= value*factorToInt*10;
+					factorToInt++;
+				}
+			}
+			for(int ii=0;ii<words.size();ii++){
+				double value = words.get(ii).getTfidf();
+				words.get(ii).setTfidf(Math.round(value*factorToInt*10));
+			}
 		}
 		return words;
 	}
