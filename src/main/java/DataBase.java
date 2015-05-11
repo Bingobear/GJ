@@ -287,25 +287,34 @@ public class DataBase {
 				}
 			}
 			int count = resultSet.getInt("count");
-			double tfidf = resultSet.getDouble("tfidf_score")*10000;
+			double tfidf = resultSet.getDouble("tfidf_score");
 
 			WordOcc wordocc = new WordOcc(word, count, tfidf);
 			words.add(wordocc);
 		}
-		if(words.size()>50){
-			words = new ArrayList(words.subList(0, 50));
+		if(words.size()>20){
+			words = new ArrayList(words.subList(0, 20));
 			int factorToInt = 1;
+			double minvalue =99;
 			for(int ii=0;ii<words.size();ii++){
 				double value = words.get(ii).getTfidf();
-				value= value*factorToInt*10;
-				while(value<10){
-					value= value*factorToInt*10;
+				value= value*(Math.pow(10, factorToInt));
+				while(value<1){
+					value= value*(Math.pow(10, factorToInt));
 					factorToInt++;
+					if(value<minvalue){
+						minvalue=value;
+					}
 				}
+				int test = 0;
+			}
+			int offset = 0;
+			if(minvalue<10){
+				offset=10;
 			}
 			for(int ii=0;ii<words.size();ii++){
 				double value = words.get(ii).getTfidf();
-				words.get(ii).setTfidf(Math.round(value*factorToInt*10));
+				words.get(ii).setTfidf(Math.round(value*(Math.pow(10, factorToInt)))+offset);
 			}
 		}
 		return words;
