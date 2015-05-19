@@ -22,7 +22,7 @@ public class DataBase {
 	private Statement statement = null;
 	private PreparedStatement preparedStatement = null;
 	private ResultSet resultSet = null;
-	private String dbName = "hcicorpus";//hcicorpus
+	private String dbName = "corpus";//hcicorpus corpus
 
 	// you need to close all three to make sure
 	private void close() {
