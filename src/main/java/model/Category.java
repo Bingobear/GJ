@@ -9,6 +9,7 @@ public class Category {
 	// private int wOcc;
 	private double relevance;
 	private String assGC;
+
 	private int edgeDegree = 0;
 	private ArrayList<SimplePDF> publications = new ArrayList<SimplePDF>();
 
@@ -121,5 +122,7 @@ public class Category {
 	public void addPDF(SimplePDF pdf){
 		this.publications.add(pdf);
 	}
+
+
 
 }
