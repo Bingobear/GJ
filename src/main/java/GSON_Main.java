@@ -7,9 +7,10 @@ import model.*;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 
 public class GSON_Main {
-	static boolean modeC = false;
+	static boolean modeC = true;
 
 	public GSON_Main() {
 
@@ -30,6 +31,12 @@ public class GSON_Main {
 			DDDFormat djson = calculateJSONV(corpus);
 			// Gson gson = new GsonBuilder().setPrettyPrinting().create();
 			String author = gsona.toJson(corpus.getAllAuthors());
+			ArrayList<String> authorACs = getAuthors(corpus.getAllAuthors());
+			ArrayList<String> publishers = getPublisher(corpus);
+			String pubs = gsona.toJson(publishers);
+			ArrayList<String> origins = getOrigins(corpus);
+			String origs = gsona.toJson(origins);
+			String authorAC = gsona.toJson(authorACs);
 			String alljson = gsona.toJson(djson);
 			ArrayList<String> autoCo = createAC(corpus);
 			// String autoC = gsona.toJson(new
@@ -38,6 +45,9 @@ public class GSON_Main {
 			writeDJSON(alljson, "hcicorpus");// hcicorpus
 			writeDJSON(author, "author");
 			writeDJSON(autoC, "autocomplete");
+			writeDJSON(authorAC, "authorAC");
+			writeDJSON(origs, "originsAC");
+			writeDJSON(pubs, "publishersAC");
 		} else {
 			Corpus corpus = db.retrieveDB();
 			ArrayList<PDFWords> completeList = getPWords(corpus);
@@ -47,13 +57,55 @@ public class GSON_Main {
 		}
 	}
 
+	private static ArrayList<String> getOrigins(Corpus corpus) {
+		ArrayList<PDF> pdfs = corpus.getPdfList();
+		ArrayList<String> result = new ArrayList<String>();
+		for (int ii = 0; ii < pdfs.size(); ii++) {
+			if (pdfs.get(ii).getPub() != null) {
+				String current = pdfs.get(ii).getPub().getOrigin();
+				if (pdfs.get(ii).getPub().getOrigin() != null) {
+					if (!result.contains(current)) {
+						result.add(pdfs.get(ii).getPub().getOrigin());
+					}
+				}
+			}
+		}
+		return result;
+	}
+
+	private static ArrayList<String> getPublisher(Corpus corpus) {
+		ArrayList<PDF> pdfs = corpus.getPdfList();
+		ArrayList<String> result = new ArrayList<String>();
+		for (int ii = 0; ii < pdfs.size(); ii++) {
+			if (pdfs.get(ii).getPub() != null) {
+				String current = pdfs.get(ii).getPub().getPublisher();
+				if (pdfs.get(ii).getPub().getPublisher() != null) {
+					if (!result.contains(current)) {
+						result.add(pdfs.get(ii).getPub().getPublisher());
+					}
+				}
+			}
+		}
+		return result;
+	}
+
+	private static ArrayList<String> getAuthors(ArrayList<Author> allAuthors) {
+		ArrayList<String> authors = new ArrayList<String>();
+		for (int ii = 0; ii < allAuthors.size(); ii++) {
+			String name = allAuthors.get(ii).getName();
+			String[] parts = name.split(",");
+			authors.add(parts[0]);
+		}
+		return authors;
+	}
+
 	private static ArrayList<PDFWords> getPWords(Corpus corpus) {
 		ArrayList<PDFWords> result = new ArrayList<PDFWords>();
 		ArrayList<PDF> pdfL = corpus.getPdfList();
-		for(int ii=0;ii<pdfL.size();ii++){
+		for (int ii = 0; ii < pdfL.size(); ii++) {
 			String fileN = pdfL.get(ii).getFileN();
 			ArrayList<WordOcc> words = pdfL.get(ii).getWordOccList();
-			result.add(new PDFWords(words,fileN));
+			result.add(new PDFWords(words, fileN));
 		}
 		return result;
 	}
