@@ -114,6 +114,7 @@ public class DataBase {
 			// System.out.println(id);
 			String title = resultSetCategory.getString("title");
 			String normtitle = resultSetCategory.getString("normtitle");
+
 			Category cat = new Category(title, normtitle);
 			// System.out.println(pdf.getPublicationID());
 			gCatList.add(cat);
@@ -258,9 +259,9 @@ public class DataBase {
 			String assGC = resultSetcat.getString("associatedGCat");
 			Category cat = null;
 			if (assGC != null) {
-				cat = new Category(name, normtitle, relevance);
-			} else {
 				cat = new Category(name, normtitle, relevance, assGC);
+			} else {
+				cat = new Category(name, normtitle, relevance);
 			}
 			cats.add(cat);
 		}
