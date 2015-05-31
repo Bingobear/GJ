@@ -253,7 +253,12 @@ public class GSON_Main {
 					if (pdfCtitle.equals(gCtitle)) {
 						found = true;
 					} else if (cat.getAssGC() != null) {
+
 						if (cat.getAssGC().equals(gCtitle)) {
+							//added so not unnecessary values exist
+							pdfCtitle = gCtitle;
+							cat.setTitle(gCatList.get(counterG).getTitle());
+							cat.setNormtitle(gCtitle);
 							found = true;
 						}
 					}

@@ -37,6 +37,7 @@ public class Category {
 	public Category(String title2, String normtitle) {
 		this.setTitle(title2);
 		this.setNormtitle(normtitle);
+
 	}
 
 	public Category(String name, String normtitle2, double relevance2) {
