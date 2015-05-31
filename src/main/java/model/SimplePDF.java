@@ -7,6 +7,7 @@ public class SimplePDF {
 	private String journaltitle;
 	private String origin;
 	private String publisher;
+	private boolean calcRel;
 
 	public SimplePDF() {
 		// TODO Auto-generated constructor stub
@@ -15,13 +16,14 @@ public SimplePDF (String name, double score){
 	this.title = name;
 	this.score = score;
 }
-	public SimplePDF(String name, double score,int releaseDate,String journaltitle,String origin, String publisher) {
+	public SimplePDF(String name, double score,int releaseDate,String journaltitle,String origin, String publisher,boolean calcRel) {
 		this.title = name;
 		this.score = score;
 		this.releaseDate=releaseDate;
 		this.journaltitle=journaltitle;
 		this.origin = origin;
 		this.publisher = publisher;
+		this.calcRel = calcRel;
 	}
 
 	public String getTitle() {
@@ -54,6 +56,12 @@ public SimplePDF (String name, double score){
 
 	public void setReleaseDate(int releaseDate) {
 		this.releaseDate = releaseDate;
+	}
+	public boolean isCalcRel() {
+		return calcRel;
+	}
+	public void setCalcRel(boolean calcRel) {
+		this.calcRel = calcRel;
 	}
 
 }

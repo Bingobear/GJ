@@ -12,6 +12,7 @@ public class Node {
 	private int pdfID = -1;
 	private String language = "NON";
 	private double relevance = -1;
+	private boolean calcRel;
 	private ArrayList<Category> genericKeywords = new ArrayList<Category>();
 	private ArrayList<WordOcc> wordOcc = new ArrayList<WordOcc>();
 	private ArrayList<Author> authors = new ArrayList<Author>();
@@ -82,6 +83,7 @@ public class Node {
 		this.pdfID = pdf.getPublicationID();
 		this.language = pdf.getLanguage();
 		this.wordOcc = pdf.getWordOccList();
+		this.calcRel = pdf.getCalcRel();
 		this.genericKeywords = pdf.getGenericKeywords();
 		this.number = counter;
 		this.type = type;

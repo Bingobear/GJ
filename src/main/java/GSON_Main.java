@@ -164,6 +164,7 @@ public class GSON_Main {
 				double currentVal = pdfCats.get(jj).getRelevance();
 				if (rangeOld == 0) {
 					pdfCats.get(jj).setRelevance(50);
+					pdfList.get(ii).setCalcRel(false);
 				} else {
 					pdfCats.get(jj).setRelevance(
 							(int) (((currentVal - minOld) * range) / rangeOld)
@@ -288,7 +289,7 @@ public class GSON_Main {
 												.getReleaseDate(), pub
 												.getJournaltitle(), pub
 												.getOrigin(), pub
-												.getPublisher()));
+												.getPublisher(),current.getCalcRel()));
 							}
 							newgCat.add(gCatList.get(counterG));
 							position = newgCat.size() - 1;
@@ -336,7 +337,7 @@ public class GSON_Main {
 														.getReleaseDate(), pub
 														.getJournaltitle(), pub
 														.getOrigin(), pub
-														.getPublisher()));
+														.getPublisher(),current.getCalcRel()));
 									}
 									pgCat.add(newgCat.get(ii));
 									break;
@@ -357,7 +358,7 @@ public class GSON_Main {
 															.getReleaseDate(),
 													pub.getJournaltitle(), pub
 															.getOrigin(), pub
-															.getPublisher()));
+															.getPublisher(),current.getCalcRel()));
 								}
 								newgCat.add(gCatList.get(counterG));
 								pgCat.add(gCatList.get(counterG));
