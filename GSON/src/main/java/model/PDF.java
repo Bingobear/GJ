@@ -13,6 +13,7 @@ public class PDF {
 	private int wordcount;
 	//TODDO cat -> scoring optimized
 	private int catnumb;
+	private boolean calcRel=true;
 
 	private String shortTitle;
 
@@ -152,6 +153,14 @@ public class PDF {
 
 	public void setPub(Publication pub) {
 		this.pub = pub;
+	}
+
+	public boolean getCalcRel() {
+		return calcRel;
+	}
+
+	public void setCalcRel(boolean calcRel) {
+		this.calcRel = calcRel;
 	}
 
 
