@@ -21,6 +21,7 @@ public class PDF {
 
 
 	private String fileN;
+	private String normtitle;
 
 
 	public int getWordcount() {
@@ -48,7 +49,7 @@ public class PDF {
 
 
 	public PDF(String shorttitle, String title,String language, ArrayList<WordOcc> words,
-			ArrayList<Category> cats, int id, ArrayList<Author> authors, String fileN) {
+			ArrayList<Category> cats, int id, ArrayList<Author> authors, String fileN, String normT) {
 		this.wordOcc = words;
 		this.title = title;
 
@@ -59,6 +60,7 @@ public class PDF {
 		this.pdfID=id;
 		this.authors = authors;
 		this.fileN = fileN;
+		this.setNormtitle(normT);
 	}
 
 	public ArrayList<WordOcc> getWordOccList() {
@@ -161,6 +163,14 @@ public class PDF {
 
 	public void setCalcRel(boolean calcRel) {
 		this.calcRel = calcRel;
+	}
+
+	public String getNormtitle() {
+		return normtitle;
+	}
+
+	public void setNormtitle(String normtitle) {
+		this.normtitle = normtitle;
 	}
 
 

@@ -145,6 +145,7 @@ public class DataBase {
 			int pubID = resultSetPDF.getInt("Publication_idPublication");
 			// System.out.println(id);
 			String title = resultSetPDF.getString("title");
+			String normtitle = resultSetPDF.getString("normtitle");
 			// title = title.toLowerCase();
 			String shorttitle = title;
 			if (title.length() > 20) {
@@ -164,7 +165,7 @@ public class DataBase {
 			// TODO HOTFIX NOT FINAL SOLUTION
 
 			PDF pdf = new PDF(shorttitle, title, language, words, cats, id,
-					authors, fileN);
+					authors, fileN,normtitle);
 			if (pubID > 0) {
 				Publication pub = getPublication(pubID, connect);
 				pdf.setPub(pub);

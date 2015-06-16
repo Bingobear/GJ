@@ -296,8 +296,8 @@ public class GSON_Main {
 							// links.add(new Link(counter, position, cat
 							// .getRelevance()));
 							links.add(new Link(counter, position, cat
-									.getRelevance(), pdfList.get(counter)
-									.getTitle(), newgCat.get(position)
+									.getRelevance(), pdfList.get(counter)//getTitle
+									.getNormtitle(), newgCat.get(position)
 									.getNormtitle()));
 							break;
 						} else {
@@ -368,7 +368,7 @@ public class GSON_Main {
 						}
 						links.add(new Link(counter, position, cat
 								.getRelevance(), pdfList.get(counter)
-								.getTitle(), newgCat.get(position)
+								.getNormtitle(), newgCat.get(position)
 								.getNormtitle()));
 						// links.add(new Link(counter, position, cat
 						// .getRelevance()));
