@@ -42,7 +42,7 @@ public class GSON_Main {
 			// String autoC = gsona.toJson(new
 			// AutoComplete(corpus.getAllAuthors(),corpus.getGlobalCategory()));
 			String autoC = gsona.toJson(autoCo);
-			writeDJSON(alljson, "hcicorpus");// hcicorpus corpus
+			writeDJSON(alljson, "corpus");// hcicorpus corpus
 			writeDJSON(author, "author");
 			writeDJSON(autoC, "autocomplete");
 			writeDJSON(authorAC, "authorAC");

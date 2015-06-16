@@ -22,7 +22,7 @@ public class DataBase {
 	private Statement statement = null;
 	private PreparedStatement preparedStatement = null;
 	private ResultSet resultSet = null;
-	private String dbName = "hcicorpus";//hcicorpus corpus
+	private String dbName = "corpus";//hcicorpus corpus
 
 	// you need to close all three to make sure
 	private void close() {
@@ -145,7 +145,7 @@ public class DataBase {
 			int pubID = resultSetPDF.getInt("Publication_idPublication");
 			// System.out.println(id);
 			String title = resultSetPDF.getString("title");
-			String normtitle = resultSetPDF.getString("normtitle");
+			String normtitle = title.replaceAll("[^\\p{L}]+", "");
 			// title = title.toLowerCase();
 			String shorttitle = title;
 			if (title.length() > 20) {
