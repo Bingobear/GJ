@@ -26,6 +26,7 @@ public class Node {
 	private ArrayList<SimplePDF> publications = new ArrayList<SimplePDF>();
 
 
+
 	public Node(Category cat) {
 		this.title = cat.getTitle();
 		this.group = cat.getColor();
@@ -38,7 +39,7 @@ public class Node {
 		this.language = pdf.getLanguage();
 		this.wordOcc = pdf.getWordOccList();
 		this.genericKeywords = pdf.getGenericKeywords();
-		this.id = pdf.getTitle();
+		this.id = pdf.getNormtitle();
 	}
 
 	public Node(Category cat, int counter) {
@@ -76,7 +77,7 @@ public class Node {
 	}
 
 	public Node(PDF pdf, int counter, String type) {
-		this.id = pdf.getTitle();
+		this.id = pdf.getNormtitle();
 		this.title = pdf.getTitle();
 		this.shorttitle = pdf.getShortTitle();
 		this.publication = pdf.getPub();
