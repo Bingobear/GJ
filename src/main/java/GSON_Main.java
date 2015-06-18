@@ -42,7 +42,7 @@ public class GSON_Main {
 			// String autoC = gsona.toJson(new
 			// AutoComplete(corpus.getAllAuthors(),corpus.getGlobalCategory()));
 			String autoC = gsona.toJson(autoCo);
-			writeDJSON(alljson, "corpus");// hcicorpus corpus
+			writeDJSON(alljson, "hcicorpus");// hcicorpus corpus
 			writeDJSON(author, "author");
 			writeDJSON(autoC, "autocomplete");
 			writeDJSON(authorAC, "authorAC");
@@ -280,7 +280,7 @@ public class GSON_Main {
 							if (current.getPub() == null) {
 								gCatList.get(counterG).addPDF(
 										new SimplePDF(current.getTitle(), cat
-												.getRelevance()));
+												.getRelevance(),current.getNormtitle()));
 							} else {
 								Publication pub = current.getPub();
 								gCatList.get(counterG).addPDF(
@@ -289,7 +289,7 @@ public class GSON_Main {
 												.getReleaseDate(), pub
 												.getJournaltitle(), pub
 												.getOrigin(), pub
-												.getPublisher(),current.getCalcRel()));
+												.getPublisher(),current.getCalcRel(),current.getNormtitle()));
 							}
 							newgCat.add(gCatList.get(counterG));
 							position = newgCat.size() - 1;
@@ -327,7 +327,7 @@ public class GSON_Main {
 										newgCat.get(ii).addPDF(
 												new SimplePDF(current
 														.getTitle(), cat
-														.getRelevance()));
+														.getRelevance(),current.getNormtitle()));
 									} else {
 										Publication pub = current.getPub();
 										newgCat.get(ii).addPDF(
@@ -337,7 +337,7 @@ public class GSON_Main {
 														.getReleaseDate(), pub
 														.getJournaltitle(), pub
 														.getOrigin(), pub
-														.getPublisher(),current.getCalcRel()));
+														.getPublisher(),current.getCalcRel(),current.getNormtitle()));
 									}
 									pgCat.add(newgCat.get(ii));
 									break;
@@ -349,7 +349,7 @@ public class GSON_Main {
 								if (current.getPub() == null) {
 									gCatList.get(counterG).addPDF(
 											new SimplePDF(current.getTitle(),
-													cat.getRelevance()));
+													cat.getRelevance(),current.getNormtitle()));
 								} else {
 									Publication pub = current.getPub();
 									gCatList.get(counterG).addPDF(
@@ -358,7 +358,7 @@ public class GSON_Main {
 															.getReleaseDate(),
 													pub.getJournaltitle(), pub
 															.getOrigin(), pub
-															.getPublisher(),current.getCalcRel()));
+															.getPublisher(),current.getCalcRel(),current.getNormtitle()));
 								}
 								newgCat.add(gCatList.get(counterG));
 								pgCat.add(gCatList.get(counterG));
