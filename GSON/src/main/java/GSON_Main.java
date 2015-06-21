@@ -280,7 +280,7 @@ public class GSON_Main {
 							if (current.getPub() == null) {
 								gCatList.get(counterG).addPDF(
 										new SimplePDF(current.getTitle(), cat
-												.getRelevance(),current.getNormtitle()));
+												.getRelevance(),current.getNormtitle(),current.getGenericKeywords()));
 							} else {
 								Publication pub = current.getPub();
 								gCatList.get(counterG).addPDF(
@@ -289,7 +289,7 @@ public class GSON_Main {
 												.getReleaseDate(), pub
 												.getJournaltitle(), pub
 												.getOrigin(), pub
-												.getPublisher(),current.getCalcRel(),current.getNormtitle()));
+												.getPublisher(),current.getCalcRel(),current.getNormtitle(),current.getGenericKeywords()));
 							}
 							newgCat.add(gCatList.get(counterG));
 							position = newgCat.size() - 1;
@@ -327,7 +327,7 @@ public class GSON_Main {
 										newgCat.get(ii).addPDF(
 												new SimplePDF(current
 														.getTitle(), cat
-														.getRelevance(),current.getNormtitle()));
+														.getRelevance(),current.getNormtitle(),current.getGenericKeywords()));
 									} else {
 										Publication pub = current.getPub();
 										newgCat.get(ii).addPDF(
@@ -337,7 +337,7 @@ public class GSON_Main {
 														.getReleaseDate(), pub
 														.getJournaltitle(), pub
 														.getOrigin(), pub
-														.getPublisher(),current.getCalcRel(),current.getNormtitle()));
+														.getPublisher(),current.getCalcRel(),current.getNormtitle(),current.getGenericKeywords()));
 									}
 									pgCat.add(newgCat.get(ii));
 									break;
@@ -349,7 +349,7 @@ public class GSON_Main {
 								if (current.getPub() == null) {
 									gCatList.get(counterG).addPDF(
 											new SimplePDF(current.getTitle(),
-													cat.getRelevance(),current.getNormtitle()));
+													cat.getRelevance(),current.getNormtitle(),current.getGenericKeywords()));
 								} else {
 									Publication pub = current.getPub();
 									gCatList.get(counterG).addPDF(
@@ -358,7 +358,7 @@ public class GSON_Main {
 															.getReleaseDate(),
 													pub.getJournaltitle(), pub
 															.getOrigin(), pub
-															.getPublisher(),current.getCalcRel(),current.getNormtitle()));
+															.getPublisher(),current.getCalcRel(),current.getNormtitle(),current.getGenericKeywords()));
 								}
 								newgCat.add(gCatList.get(counterG));
 								pgCat.add(gCatList.get(counterG));
