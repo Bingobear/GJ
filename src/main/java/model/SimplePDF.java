@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 public class SimplePDF {
 	private String title;
 	private double score;
@@ -9,16 +11,20 @@ public class SimplePDF {
 	private String origin;
 	private String publisher;
 	private boolean calcRel;
+	private ArrayList<String> keywordList = new ArrayList<String>();
 
 	public SimplePDF() {
 		// TODO Auto-generated constructor stub
 	}
-public SimplePDF (String name, double score,String id){
+public SimplePDF (String name, double score,String id, ArrayList<Category> keyw){
 	this.title = name;
 	this.score = score;
 	this.id = id;
+	for(int ii=0;ii<keyw.size();ii++){
+		keywordList.add(keyw.get(ii).getNormtitle());
+	}
 }
-	public SimplePDF(String name, double score,int releaseDate,String journaltitle,String origin, String publisher,boolean calcRel,String id) {
+	public SimplePDF(String name, double score,int releaseDate,String journaltitle,String origin, String publisher,boolean calcRel,String id, ArrayList<Category> keyw) {
 		this.title = name;
 		this.score = score;
 		this.releaseDate=releaseDate;
@@ -27,6 +33,11 @@ public SimplePDF (String name, double score,String id){
 		this.publisher = publisher;
 		this.calcRel = calcRel;
 		this.id = id;
+		String affe = this.id;
+
+		for(int ii=0;ii<keyw.size();ii++){
+			keywordList.add(keyw.get(ii).getNormtitle());
+		}
 	}
 
 	public String getTitle() {
