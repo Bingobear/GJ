@@ -2,6 +2,10 @@ package model;
 
 import java.util.ArrayList;
 
+/**Corpus class 
+ * @author Simon
+ *
+ */
 public class Corpus {
 	private ArrayList<Category> globalCategory = new ArrayList<Category>();
 

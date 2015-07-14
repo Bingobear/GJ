@@ -1,5 +1,10 @@
 package model;
 
+/**Keyword class
+ * knows its pdf and score
+ * @author Simon
+ *
+ */
 public class Keyword {
 	private int score;
 	private String word;

@@ -2,6 +2,11 @@ package model;
 
 import java.util.ArrayList;
 
+/**Category class
+ * ~ keywords known to corpus
+ * @author Simon
+ *
+ */
 public class Category {
 	private String title;
 	private int color;

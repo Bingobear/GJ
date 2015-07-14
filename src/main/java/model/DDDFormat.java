@@ -2,6 +2,10 @@ package model;
 
 import java.util.ArrayList;
 
+/**Graph Formatting for GSON
+ * @author Simon
+ *
+ */
 public class DDDFormat {
 
 ArrayList graph = new ArrayList();
