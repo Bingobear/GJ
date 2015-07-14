@@ -2,11 +2,13 @@ package model;
 
 import java.util.ArrayList;
 
+/**Node Interface to define publication and category node info
+ * @author Simon
+ *
+ */
 public class Node {
 	private String id="";
 	private String title;
-	// HOW TO COLOR CODE GROUPS
-	
 	private int group = -1;
 	private int number = -1;
 	private int pdfID = -1;

@@ -1,5 +1,9 @@
 package model;
 
+/**Simplified Category class - to minimize data 
+ * @author Simon
+ *
+ */
 public class SimpleCategory {
 private String title;
 private String normtitle;

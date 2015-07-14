@@ -17,12 +17,23 @@ import model.PDFWords;
 import model.Publication;
 import model.WordOcc;
 
+/**
+ * Interface to retrieve the corpus (all publication, authors,... info) from the
+ * Database
+ * 
+ * @author Simon
+ *
+ */
+/**
+ * @author Simon
+ *
+ */
 public class DataBase {
 	private Connection connect = null;
 	private Statement statement = null;
 	private PreparedStatement preparedStatement = null;
 	private ResultSet resultSet = null;
-	private String dbName = "hcicorpus";//hcicorpus corpus
+	private String dbName = "hcicorpus";// hcicorpus corpus
 
 	// you need to close all three to make sure
 	private void close() {
@@ -42,6 +53,9 @@ public class DataBase {
 		}
 	}
 
+	/**Retrieves Corpus from Database
+	 * @return corpus
+	 */
 	public Corpus retrieveDB() {
 		// this will load the MySQL driver, each DB has its own driver
 
@@ -75,6 +89,11 @@ public class DataBase {
 		return corpus;
 	}
 
+	/**Retrieves all authors from Databse
+	 * @param connect2
+	 * @return ArrayList with every Author
+	 * @throws SQLException
+	 */
 	private ArrayList<Author> createAllAuthor(Connection connect2)
 			throws SQLException {
 		ArrayList<Author> authors = new ArrayList<Author>();
@@ -99,6 +118,11 @@ public class DataBase {
 		return authors;
 	}
 
+	/**Retrieve Global Categories from Database
+	 * @param connect2
+	 * @return ArrayList with all Global Categories
+	 * @throws SQLException
+	 */
 	private ArrayList<Category> createGlobalCat(Connection connect2)
 			throws SQLException {
 		// TODO Auto-generated method stub
@@ -124,6 +148,11 @@ public class DataBase {
 		return gCatList;
 	}
 
+	/**Retrieves all Publications/PDFs
+	 * @param connect
+	 * @return ArrayList consisting of all PDFs
+	 * @throws SQLException
+	 */
 	private ArrayList<PDF> createPDFlist(Connection connect)
 			throws SQLException {
 		// TODO Auto-generated method stub
@@ -156,16 +185,16 @@ public class DataBase {
 
 			ArrayList<WordOcc> words = createWords(connect, id);
 			// TODO TOO MUCH INFO FOR PROTOTYPE VERSION (INCLUDE LATER)
-			if(GSON_Main.modeC){
+			if (GSON_Main.modeC) {
 				words = null;
-				}
+			}
 			ArrayList<Category> cats = createCats(connect, id);
 
 			ArrayList<Author> authors = createAuthors(connect, id);
 			// TODO HOTFIX NOT FINAL SOLUTION
 
 			PDF pdf = new PDF(shorttitle, title, language, words, cats, id,
-					authors, fileN,normtitle);
+					authors, fileN, normtitle);
 			if (pubID > 0) {
 				Publication pub = getPublication(pubID, connect);
 				pdf.setPub(pub);
@@ -179,6 +208,12 @@ public class DataBase {
 		return pdfList;
 	}
 
+	/**Retrieves a specific Publication (pubID)
+	 * @param pubID
+	 * @param connect2
+	 * @return publication
+	 * @throws SQLException
+	 */
 	private Publication getPublication(int pubID, Connection connect2)
 			throws SQLException {
 		Publication pub = null;
@@ -209,6 +244,12 @@ public class DataBase {
 		return pub;
 	}
 
+	/**Retrieves the authors from a specific pdf (id)
+	 * @param connect2
+	 * @param id
+	 * @return arraylist of pdf authors
+	 * @throws SQLException
+	 */
 	private ArrayList<Author> createAuthors(Connection connect2, int id)
 			throws SQLException {
 		ArrayList<Integer> authids = new ArrayList<Integer>();
@@ -235,6 +276,12 @@ public class DataBase {
 		return authors;
 	}
 
+	/**Retrieves the corresponding categories from a speicifc PDF (id)
+	 * @param connect
+	 * @param id
+	 * @return arraylist of pdf categories(keywords)
+	 * @throws SQLException
+	 */
 	private ArrayList<Category> createCats(Connection connect, int id)
 			throws SQLException {
 		ArrayList<Integer> catids = new ArrayList<Integer>();
@@ -269,22 +316,31 @@ public class DataBase {
 		return cats;
 	}
 
+	/**Retrieves the top 20 significant words of a specific pdf (id)
+	 * @param connect
+	 * @param id
+	 * @return arraylist of significant words (pdf)
+	 * @throws SQLException
+	 */
 	private ArrayList<WordOcc> createWords(Connection connect, int id)
 			throws SQLException {
 		ArrayList<WordOcc> words = new ArrayList<WordOcc>();
-		ArrayList<Author> authors  = createAllAuthor(connect);
+		ArrayList<Author> authors = createAllAuthor(connect);
 		preparedStatement = connect
 				.prepareStatement("SELECT PDF_idPDF,word,count,tfidf_score FROM  "
-						+ dbName + ".Keyword WHERE PDF_idPDF=" + id+"  ORDER BY tfidf_score DESC");
+						+ dbName
+						+ ".Keyword WHERE PDF_idPDF="
+						+ id
+						+ "  ORDER BY tfidf_score DESC");
 		resultSet = preparedStatement.executeQuery();
 		while (resultSet.next()) {
 
 			String word = resultSet.getString("word");
 			String eva = word.toLowerCase();
-			boolean author =false;
-			for(int ii =0;ii<authors.size();ii++){
-				//potentially use levenstein to find writing errors
-				if(authors.get(ii).getName().toLowerCase().contains(eva)){
+			boolean author = false;
+			for (int ii = 0; ii < authors.size(); ii++) {
+				// potentially use levenstein to find writing errors
+				if (authors.get(ii).getName().toLowerCase().contains(eva)) {
 					author = true;
 				}
 			}
@@ -294,33 +350,34 @@ public class DataBase {
 			WordOcc wordocc = new WordOcc(word, count, tfidf);
 			words.add(wordocc);
 		}
-		if(words.size()>20){
+		if (words.size() > 20) {
 			words = new ArrayList(words.subList(0, 20));
 			int factorToInt = 1;
-			double minvalue =99;
-			for(int ii=0;ii<words.size();ii++){
+			double minvalue = 99;
+			for (int ii = 0; ii < words.size(); ii++) {
 				double value = words.get(ii).getTfidf();
-				value= value*(Math.pow(10, factorToInt));
-				while(value<1){
-					value= value*(Math.pow(10, factorToInt));
+				value = value * (Math.pow(10, factorToInt));
+				while (value < 1) {
+					value = value * (Math.pow(10, factorToInt));
 					factorToInt++;
-					if(value<minvalue){
-						minvalue=value;
+					if (value < minvalue) {
+						minvalue = value;
 					}
 				}
 				int test = 0;
 			}
 			int offset = 0;
-			if(minvalue<10){
-				offset=10;
+			if (minvalue < 10) {
+				offset = 10;
 			}
-			for(int ii=0;ii<words.size();ii++){
+			for (int ii = 0; ii < words.size(); ii++) {
 				double value = words.get(ii).getTfidf();
-				words.get(ii).setTfidf(Math.round(value*(Math.pow(10, factorToInt)))+offset);
+				words.get(ii).setTfidf(
+						Math.round(value * (Math.pow(10, factorToInt)))
+								+ offset);
 			}
 		}
 		return words;
 	}
 
-	
 }

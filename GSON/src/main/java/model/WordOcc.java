@@ -2,20 +2,15 @@ package model;
 
 
 
+/**Word Occ class - defining word, its occurence and tfidf value
+ * @author Simon
+ *
+ */
 public class WordOcc {
 	private String word;
 	private int occ;
-//	private double tf = 0;
 	private double tfidf = 0;
-//	private double idf = 0;
-//	private int keyinPDF = 0;
-//	private int keyinCat = 0;
-	//before 1
-//	private int catRel = 0;
-//	private double catIDF = 0;
-//	private double catTF = 0;
-//	private double catTFIDF = 0;
-//	private boolean catRet = false;
+
 
 	WordOcc() {
 

@@ -1,5 +1,9 @@
 package model;
 
+/**Link Class - different link complexities
+ * @author Simon
+ *
+ */
 public class Link {
 //private int sourceP;
 //private int targetP;

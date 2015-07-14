@@ -1,5 +1,9 @@
 package model;
 
+/**Collection of useful Algorithms
+ * @author Simon
+ *
+ */
 public class AlgorithmUtil {
 
 	public AlgorithmUtil() {
@@ -24,6 +28,11 @@ public class AlgorithmUtil {
 	}
 	
 	//SOURCE WIKIPEDIA
+	/**
+	 * @param wordA
+	 * @param wordB
+	 * @return levenshtein distance value
+	 */
 	public static int LevenshteinDistance (String wordA, String wordB) {                          
 	    int len0 = wordA.length() + 1;                                                     
 	    int len1 = wordB.length() + 1;                                                     
@@ -64,6 +73,11 @@ public class AlgorithmUtil {
 	    return cost[len0 - 1];                                                          
 	}
 	
+	/**Calculates for a given levenshteindistance the similarity of the used words
+	 * @param word (longest word)
+	 * @param diff
+	 * @return
+	 */
 	public static double calculateWordSim(String word,double diff){
 		return diff/word.length();
 	}
