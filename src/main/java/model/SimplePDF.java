@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Minimized PDF class to minimize file size
  * 
- * @author Simon
+ * @author Simon Bruns
  *
  */
 public class SimplePDF {

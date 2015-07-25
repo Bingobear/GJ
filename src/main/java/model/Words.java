@@ -2,6 +2,12 @@ package model;
 
 import java.util.ArrayList;
 
+
+/**Word class 
+ * @author Simon Bruns
+ *
+ */
+
 public class Words {
 	private String word;
 	private String stem;

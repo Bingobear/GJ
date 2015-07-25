@@ -1,15 +1,16 @@
 package model;
 
 import java.util.ArrayList;
-//create separate author class 
+
+
+/**author class 
+ * @author Simon Bruns
+ *
+ */
+
 public class Author {
 	private String name;
-	//has unnecessary values
-	//private ArrayList<Category> cats = new ArrayList();
 	private ArrayList<SimpleCategory> cats = new ArrayList();
-	// private String adress;
-	// private int pos;
-	// private int authorID;
 
 	public Author() {
 

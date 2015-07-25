@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 
 /**Node Interface to define publication and category node info
- * @author Simon
+ * @author Simon Bruns
  *
  */
 public class Node {

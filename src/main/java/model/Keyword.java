@@ -2,7 +2,7 @@ package model;
 
 /**Keyword class
  * knows its pdf and score
- * @author Simon
+ * @author Simon Bruns
  *
  */
 public class Keyword {

@@ -2,6 +2,12 @@ package model;
 
 import java.util.ArrayList;
 
+
+/**PDF class 
+ * @author Simon Bruns
+ *
+ */
+
 public class PDF {
 	private int pdfID;
 	private String title;

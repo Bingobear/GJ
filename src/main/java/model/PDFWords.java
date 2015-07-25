@@ -2,6 +2,12 @@ package model;
 
 import java.util.ArrayList;
 
+
+/**PDFWords class 
+ * @author Simon Bruns
+ *
+ */
+
 public class PDFWords {
 	ArrayList<WordOcc> words = new ArrayList<WordOcc>();
 	String fileN;

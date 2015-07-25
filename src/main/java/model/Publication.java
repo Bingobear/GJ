@@ -1,5 +1,11 @@
 package model;
 
+
+/**Publication class 
+ * @author Simon Bruns
+ *
+ */
+
 public class Publication {
 	private String title;
 	private String format;

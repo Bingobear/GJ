@@ -3,7 +3,7 @@ package model;
 
 
 /**Word Occ class - defining word, its occurence and tfidf value
- * @author Simon
+ * @author Simon Bruns
  *
  */
 public class WordOcc {
