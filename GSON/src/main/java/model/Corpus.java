@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 
 /**Corpus class 
- * @author Simon
+ * @author Simon Bruns
  *
  */
 public class Corpus {

@@ -1,7 +1,7 @@
 package model;
 
 /**Simplified Category class - to minimize data 
- * @author Simon
+ * @author Simon Bruns
  *
  */
 public class SimpleCategory {

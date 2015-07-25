@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**Category class
  * ~ keywords known to corpus
- * @author Simon
+ * @author Simon Bruns
  *
  */
 public class Category {

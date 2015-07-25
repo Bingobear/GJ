@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 
 /**Graph Formatting for GSON
- * @author Simon
+ * @author Simon Bruns
  *
  */
 public class DDDFormat {

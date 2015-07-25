@@ -1,7 +1,7 @@
 package model;
 
 /**Link Class - different link complexities
- * @author Simon
+ * @author Simon Bruns
  *
  */
 public class Link {

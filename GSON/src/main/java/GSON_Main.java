@@ -10,7 +10,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 
 /**GSON Interface to generate JSON from DB entries
- * @author Simon
+ * @author Simon Bruns
  *
  */
 public class GSON_Main {

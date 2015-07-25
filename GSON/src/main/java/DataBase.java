@@ -25,7 +25,7 @@ import model.WordOcc;
  *
  */
 /**
- * @author Simon
+ * @author Simon Bruns
  *
  */
 public class DataBase {

@@ -1,7 +1,7 @@
 package model;
 
 /**Collection of useful Algorithms
- * @author Simon
+ * @author Simon Bruns
  *
  */
 public class AlgorithmUtil {

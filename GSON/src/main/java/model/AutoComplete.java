@@ -2,6 +2,12 @@ package model;
 
 import java.util.ArrayList;
 
+
+/**AutoComplet class (authors connected with their categories) 
+ * @author Simon Bruns
+ *
+ */
+
 public class AutoComplete {
 private ArrayList<Category> gCats;
 private ArrayList<Author> authors;
