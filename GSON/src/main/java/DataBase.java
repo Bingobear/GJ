@@ -53,7 +53,9 @@ public class DataBase {
 		}
 	}
 
-	/**Retrieves Corpus from Database
+	/**
+	 * Retrieves Corpus from Database
+	 * 
 	 * @return corpus
 	 */
 	public Corpus retrieveDB() {
@@ -89,7 +91,9 @@ public class DataBase {
 		return corpus;
 	}
 
-	/**Retrieves all authors from Databse
+	/**
+	 * Retrieves all authors from Databse
+	 * 
 	 * @param connect2
 	 * @return ArrayList with every Author
 	 * @throws SQLException
@@ -118,7 +122,9 @@ public class DataBase {
 		return authors;
 	}
 
-	/**Retrieve Global Categories from Database
+	/**
+	 * Retrieve Global Categories from Database
+	 * 
 	 * @param connect2
 	 * @return ArrayList with all Global Categories
 	 * @throws SQLException
@@ -148,7 +154,9 @@ public class DataBase {
 		return gCatList;
 	}
 
-	/**Retrieves all Publications/PDFs
+	/**
+	 * Retrieves all Publications/PDFs
+	 * 
 	 * @param connect
 	 * @return ArrayList consisting of all PDFs
 	 * @throws SQLException
@@ -174,6 +182,8 @@ public class DataBase {
 			int pubID = resultSetPDF.getInt("Publication_idPublication");
 			// System.out.println(id);
 			String title = resultSetPDF.getString("title");
+			// In case titles only numbers("[-+.^:,]","") - (care some functions
+			// are based on ids in tigrs)
 			String normtitle = title.replaceAll("[^\\p{L}]+", "");
 			// title = title.toLowerCase();
 			String shorttitle = title;
@@ -184,14 +194,12 @@ public class DataBase {
 			String language = resultSetPDF.getString("language");
 
 			ArrayList<WordOcc> words = createWords(connect, id);
-			// TODO TOO MUCH INFO FOR PROTOTYPE VERSION (INCLUDE LATER)
 			if (GSON_Main.modeC) {
 				words = null;
 			}
 			ArrayList<Category> cats = createCats(connect, id);
 
 			ArrayList<Author> authors = createAuthors(connect, id);
-			// TODO HOTFIX NOT FINAL SOLUTION
 
 			PDF pdf = new PDF(shorttitle, title, language, words, cats, id,
 					authors, fileN, normtitle);
@@ -208,7 +216,9 @@ public class DataBase {
 		return pdfList;
 	}
 
-	/**Retrieves a specific Publication (pubID)
+	/**
+	 * Retrieves a specific Publication (pubID)
+	 * 
 	 * @param pubID
 	 * @param connect2
 	 * @return publication
@@ -244,7 +254,9 @@ public class DataBase {
 		return pub;
 	}
 
-	/**Retrieves the authors from a specific pdf (id)
+	/**
+	 * Retrieves the authors from a specific pdf (id)
+	 * 
 	 * @param connect2
 	 * @param id
 	 * @return arraylist of pdf authors
@@ -276,7 +288,9 @@ public class DataBase {
 		return authors;
 	}
 
-	/**Retrieves the corresponding categories from a speicifc PDF (id)
+	/**
+	 * Retrieves the corresponding categories from a speicifc PDF (id)
+	 * 
 	 * @param connect
 	 * @param id
 	 * @return arraylist of pdf categories(keywords)
@@ -316,7 +330,9 @@ public class DataBase {
 		return cats;
 	}
 
-	/**Retrieves the top 20 significant words of a specific pdf (id)
+	/**
+	 * Retrieves the top 20 significant words of a specific pdf (id)
+	 * 
 	 * @param connect
 	 * @param id
 	 * @return arraylist of significant words (pdf)
